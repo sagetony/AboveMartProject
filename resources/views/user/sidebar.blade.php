@@ -88,10 +88,16 @@
 <div class="menu-submenu">
 
 <div class="menu-item">
-<a href="" class="menu-link">
+<a href="{{ route('rechargepurchase') }}" class="menu-link">
 <div class="menu-text">Recharge Card Purchase <i class="fa fa-paper-plane text-theme"></i></div>
 </a>
 </div>
+<div class="menu-item">
+    <a href="{{ route('datapurchase') }}" class="menu-link">
+    <div class="menu-text">Data Purchase <i class="fa fa-paper-plane text-theme"></i></div>
+    </a>
+</div>
+
 <div class="menu-item">
 <a href="form_editable.html" class="menu-link">
 <div class="menu-text">Recharge Card Printing</div>

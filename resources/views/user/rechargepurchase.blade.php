@@ -37,27 +37,42 @@
 <div class="tab-content p-0">
 
 <div class="tab-pane fade show active" id="profile-about">
-<h4> Deposit</small></h4>
-<form action="{{ route('pay') }}" method="post">
+<h4> Recharge Purchase</small></h4>
+<form action="{{ route('rechargepurchase') }}" method="post">
 @csrf
 <div class="row mb-15px">
-<label class="form-label col-form-label col-md-1">Email address</label>
+<label class="form-label col-form-label col-md-2">Phone Number</label>
 <div class="col-md-6">
-<input class="form-control" type="email" name ="email" placeholder="Enter Email Address" required />
-<small class="fs-12px text-gray-500-darker">We'll never share your email with anyone else.</small>
+<input class="form-control" type="number" name ="phoneNumber" placeholder="Enter Phone Number"  required/>
+<small class="fs-12px text-gray-500-darker">Kindly enter a valid phone number.</small>
 </div>
 </div>
 <div class="row mb-15px">
-<label class="form-label col-form-label col-md-1">Amount</label>
+    <label class="form-label col-form-label col-md-2">Select Network</label>
+    <div class="col-md-6">
+        <select class="form-select" name="package">
+            <option value="mtn_custom">MTN</option>
+            <option value="airtel_custom">AIRTEL</option>
+            <option value="glo_custom">GLO</option>
+            <option value="9mobile_custom">9MOBILE</option>
+
+        </select>
+        <small class="fs-12px text-gray-500-darker">Kindly select a valid network.</small>
+
+    </div>
+</div>
+
+<div class="row mb-15px">
+<label class="form-label col-form-label col-md-2">Amount</label>
 <div class="col-md-6">
 <input class="form-control" type="text" name ="amount" placeholder="Enter Amount" required />
 </div>
 </div>
 <div class="row mb-15px">
-<div class="col-md-1">
+<div class="col-md-2">
 </div>
 <div class="col-md-9">
-<button type="submit" class="btn btn-primary w-150px">Fund Wallet</button>
+<button type="submit" class="btn btn-primary w-250px">Recharge Number</button>
 </div>
 </div>
 </form>

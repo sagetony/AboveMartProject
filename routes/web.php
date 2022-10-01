@@ -14,6 +14,8 @@ use App\Http\Controllers\sponsorpackage;
 use App\Http\Controllers\deposithistory;
 use App\Http\Controllers\withdrawhistory;
 use App\Http\Controllers\bonushistory;
+use App\Http\Controllers\rechargepurchase;
+use App\Http\Controllers\datapurchase;
 use App\Http\Controllers\logout;
 use Illuminate\Support\Facades\Route;
 
@@ -83,7 +85,10 @@ Route::get('/bonushistory', [bonushistory::class, "index"])->name('bonushistory'
 Route::get('/transfer', [transfer::class, 'index'])->name('transfer');
 Route::post('/transfer', [transfer::class, 'store'])->name('transfer');
 
+Route::get('/rechargepurchase', [rechargepurchase::class, 'index'])->name('rechargepurchase');
+Route::post('/rechargepurchase', [rechargepurchase::class, 'store'])->name('rechargepurchase');
+
+Route::get('/datapurchase', [datapurchase::class, 'index'])->name('datapurchase');
+Route::post('/datapurchase', [datapurchase::class, 'store'])->name('datapurchase');
 
 Route::get('/logout', [logout::class, 'logout'])->name('logout');
-
-

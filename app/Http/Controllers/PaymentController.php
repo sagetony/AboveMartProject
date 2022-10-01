@@ -13,7 +13,6 @@ use Unicodeveloper\Paystack\Facades\Paystack as FacadesPaystack;
 
 class PaymentController extends Controller
 {
-
     /**
      * Redirect the User to Paystack Payment Page
      * @return Url
@@ -23,7 +22,10 @@ class PaymentController extends Controller
         try {
             return FacadesPaystack::getAuthorizationUrl()->redirectNow();
         } catch (\Exception $e) {
-            return Redirect::back()->withMessage(['msg' => 'The paystack token has expired. Please refresh the page and try again.', 'type' => 'error']);
+            return Redirect::back()->withMessage([
+                'msg' => 'The paystack token has expired. Please refresh the page and try again.',
+                'type' => 'error',
+            ]);
         }
     }
 
@@ -35,25 +37,23 @@ class PaymentController extends Controller
     {
         $paymentDetails = FacadesPaystack::getPaymentData();
         if ($paymentDetails['status'] == true) {
-
-            DB::table('funds')
-                ->insert([
-                    'transactionId' => $paymentDetails['data']['reference'],
-                    'userId' => auth()->user()->userId,
-                    'name' => auth()->user()->username,
-                    'email' => $paymentDetails['data']['customer']['email'],
-                    'amount' => $paymentDetails['data']['amount'] / 100,
-                    'paymentType' => 'Wallet',
-                    'status' => 'success',
-                    "created_at" =>  date('Y-m-d H:i:s'),
-                    "updated_at" => date('Y-m-d H:i:s'),
-                ]);
+            DB::table('funds')->insert([
+                'transactionId' => $paymentDetails['data']['reference'],
+                'userId' => auth()->user()->userId,
+                'name' => auth()->user()->username,
+                'email' => $paymentDetails['data']['customer']['email'],
+                'amount' => $paymentDetails['data']['amount'] / 100,
+                'paymentType' => 'Wallet',
+                'status' => 'success',
+                "created_at" => date('Y-m-d H:i:s'),
+                "updated_at" => date('Y-m-d H:i:s'),
+            ]);
             return back()->with('toast_success', 'Transaction Successful !!');
         } else {
             return back()->with('toast_error', 'Failed transaction');
         }
 
-        // amount rounded 
+        // amount rounded
 
         // Now you have the payment details,
         // you can store the authorization_code in your db to allow for recurrent subscriptions
