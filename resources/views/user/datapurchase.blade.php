@@ -64,7 +64,7 @@
     <div class="row mb-15px" style="display: none;" id="mtn">
         <label class="form-label col-form-label col-md-2">Select Package</label>
         <div class="col-md-6">
-            <select class="form-select" name="package">
+            <select class="form-select" name="package" id="mtnData" onChange="insertAmount()">
                 <option value="mtn_75mb_24hrs">MTN 75MB 24hrs</option>
                 <option value="mtn_1gb_24hrs">MTN 1GB 24hrs</option>
                 <option value="mtn_200mb_2days">MTN 200MB 2days</option>
@@ -98,18 +98,32 @@
     <div class="row mb-15px" style="display: none;" id="airtel">
         <label class="form-label col-form-label col-md-2">Select Package</label>
         <div class="col-md-6">
-            <select class="form-select" name="package">
-                <option value="mtn_custom">AIRTEL</option>
-                <option value="airtel_custom">MTN</option>
-                <option value="glo_custom">GLO</option>
-                <option value="9mobile_custom">9MOBILE</option>
+            <select class="form-select" name="package" id="airtelData" onChange="insertAAmount()">
+                <option value="airtel_75mb10_extra_24hrs"> Airtel 75MB+10% Extra 24hrs </option>
+                <option value="airtel_1gb__1day">Airtel 1GB 1day</option>
+                <option value="airtel_2gb__2days"> Airtel 2GB 2Days</option>
+                <option value="airtel_200mb_3days">Airtel 200MB 3Days </option>
+                <option value="airtel_350mb__10_extra_7days">Airtel 350MB + 10% Extra 7days</option>
+                <option value="airtel_6gb_7days">Airtel 6GB 7Days </option>
+                <option value="airtel_750mb">Airtel 750MB </option>
+                <option value="airtel_1_5gb">Airtel 1.5GB</option>
+                <option value="airtel_2gb_30days">Airtel 2GB 30days </option>
+                <option value="airtel_3gb__30days"> Airtel 3GB 30days </option>
+                <option value="airtel_4_5gb_30days">Airtel 4.5GB 30days</option>
+                <option value="airtel_6gb__30days">Airtel 6GB 30days </option>
+                <option value="airtel_8gb_30days">Airtel 8GB 30days </option>
+                <option value="airtel_11gb_30days">Airtel 11GB 30days </option>
+                <option value="airtel_15gb">Airtel 15GB  30days </option>
+                <option value="airtel_40gb_30days">Airtel 40GB 30days</option>
+                <option value="airtel_75gb_30days">Airtel 75GB 30days</option>
+                <option value="airtel_110gb_30days">Airtel 110GB 30days</option>
             </select>
         </div>
     </div>
     <div class="row mb-15px" style="display: none;" id="glo">
         <label class="form-label col-form-label col-md-2">Select Package</label>
         <div class="col-md-6">
-            <select class="form-select" name="package">
+            <select class="form-select" name="package" id="gloData" onChange="insertGAmount()">
                 <option value="glo_90mb">GLO 90MB</option>
                 <option value="glo_340mb">GLO 340MB</option>
                 <option value="glo_1_05gb">GLO 1.05GB</option>
@@ -132,25 +146,52 @@
     <div class="row mb-15px" style="display: none;" id="9mobile">
         <label class="form-label col-form-label col-md-2">Select Package</label>
         <div class="col-md-6">
-            <select class="form-select" name="package">
-                <option value="mtn_custom">9mobile</option>
-                <option value="airtel_custom">AIRTEL</option>
-                <option value="glo_custom">GLO</option>
-                <option value="9mobile_custom">9MOBILE</option>
+            <select class="form-select" name="package" id="9mobileData" onChange="insertMAmount()">
+                <option value="9mobile_100mb_24hrs">9Mobile 100MB 24hrs </option>
+                <option value="9mobile_650mb_24hrs">9Mobile 650MB 24hrs </option>
+                <option value="9mobile_7gb_7_days">9Mobile 7GB 7 Days </option>
+                <option value="9mobile_500mb_30days">9Mobile 500MB 30Days </option>
+                <option value="9mobile_1_5gb_30_days">9Mobile 1.5GB 30 Days</option>
+                <option value="9mobile_2gb_30days">9Mobile 2gb 30days  </option>
+                <option value="9mobile_4_5gb_30_days">9Mobile 4.5GB 30 Days </option>
+                <option value="9mobile_11gb_30days">9Mobile 11GB 30days  </option>
+                <option value="9mobile_15gb_30days">9Mobile 15GB 30Days </option>
+                <option value="9mobile_40_gb_30_days">9Mobile 40GB 30Days  </option>
+                <option value="9mobile_75_gb_30_days">9Mobile 75 GB 30 Days  </option>
+                <option value="9mobile_30gb_90_days">9Mobile 30GB 90 Days  </option>
+                <option value="9mobile_100gb_100_days">9Mobile 100GB 100 Days  </option>
+                <option value="9mobile_60gb_180_days">9Mobile 60GB 180 Days </option>
+                <option value="9mobile_120gb_365_days">9Mobile 120GB 365 Days </option>
             </select>
         </div>
     </div>
+    <div class="row mb-15px" id="amount" style="display: none;">
+    <label class="form-label col-form-label col-md-2">Amount</label>
+    <div class="col-md-6">
+    <input class="form-control" type="text" id="amountV" name ="amount" value="100" placeholder="Enter Amount" required />
+    </div>
+    </div>
+    <div class="row mb-15px">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-9">
+    <button type="submit" class="btn btn-primary w-250px">Buy Data</button>
+    </div>
+    </div>
+    
     <script type="text/javascript">
-        function update() {
+
+        function update (){
             var select = document.getElementById('network');
             var option = select.options[select.selectedIndex];
+            document.getElementById("amount").style.display = "block";
             if(option.value == 'mtn'){
                 document.getElementById("mtn").style.display = "block";
-                document.getElementById("aitel").style.display = "block";
+                document.getElementById("airtel").style.display = "none";
                 document.getElementById("glo").style.display = "none";
                 document.getElementById("9mobile").style.display = "none";
             }else if(option.value == 'airtel'){
-                document.getElementById("aitel").style.display = "none";
+                document.getElementById("airtel").style.display = "block";
                 document.getElementById("glo").style.display = "none";
                 document.getElementById("9mobile").style.display = "none";
                 document.getElementById("mtn").style.display = "none";
@@ -158,28 +199,276 @@
                 document.getElementById("glo").style.display = "block";
                 document.getElementById("9mobile").style.display = "none";
                 document.getElementById("mtn").style.display = "none";
-                document.getElementById("aitel").style.display = "none";
+                document.getElementById("airtel").style.display = "none";
             }else{
                 document.getElementById("9mobile").style.display = "block";
                 document.getElementById("mtn").style.display = "none";
-                document.getElementById("aitel").style.display = "none";
+                document.getElementById("airtel").style.display = "none";
                 document.getElementById("glo").style.display = "none";
             }
         }
+
+        let mtn_75mb_24hrs = 100;
+        let mtn_1gb_24hrs = 300;
+        let mtn_200mb_2days = 200;
+        let mtn_2_5gb_2days = 500;
+        let mtn_350mb_7days =300
+        let mtn_1gb_7days = 500;
+        let mtn_6gb_7_days =  1500;
+        let mtn_750mb_14days = 500;
+        let mtn_15gb_30days = 1000;
+        let mtn_2gb_30_days = 1200;
+        let mtn_3gb_30days = 1500;
+        let mtn_45gb_30days = 2000;
+        let mtn_6gb_30days = 2500;
+        let mtn_8gb_30days = 3000;
+        let mtn_10gb_30days = 3500;
+        let mtn_15gb_30_days = 5000;
+        let mtn_20gb_30_days = 6000;
+        let mtn_40gb = 10000;
+        let mtn_75gb_30days = 15000;
+        let mtn_110gb_30days = 20000;
+        let mtn_75gb_60days = 20000;
+        let mtn_120gb_60days = 30000;
+        let mtn_150gb_90_days = 50000;
+        let mtn_250gb_90days = 75000;
+        let mtn_400gb_365days = 120000;
+        let mtn_1000gb_365days = 250000;
+        let mtn_2000gb_365days = 450000;
+        let glo_90mb = 100;
+        let glo_340mb = 200;
+        let glo_1_05gb = 500;
+        let glo_2_3gb = 1000;
+        let glo_3_75gb = 1500;
+        let glo_5_25_gb = 2000;
+        let glo_7gb = 2500;
+        let glo_9gb = 3000;
+        let glo_12gb = 4000;
+        let glo_1825gb = 5000;
+        let glo_259gb =  8000;
+        let glo_50gb = 10000;
+        let glo_93gb = 15000;
+        let glo_119gb = 18000;
+        let glo_138gb = 20000;
+        let airtel_75mb10_extra_24hrs = 100;
+        let airtel_1gb__1day = 300;
+        let airtel_2gb__2days = 500;
+        let airtel_200mb_3days = 200;
+        let airtel_350mb__10_extra_7days = 300;
+        let airtel_6gb_7days = 1500;
+        let airtel_750mb = 500;
+        let airtel_1_5gb = 1000;
+        let airtel_2gb_30days = 1200;
+        let airtel_3gb__30days =  1500;
+        let airtel_4_5gb_30days = 2000;
+        let airtel_6gb__30days = 2500;
+        let airtel_8gb_30days = 3000;
+        let airtel_11gb_30days = 4000;
+        let airtel_15gb = 5000;
+        let airtel_40gb_30days = 10000;
+        let airtel_75gb_30days = 15000;
+        let airtel_110gb_30days = 20000;
+        let mobile_100mb_24hrs = 100;
+        let mobile_650mb_24hrs =  200;
+        let mobile_7gb_7_days = 1500;
+        let mobile_500mb_30days =  500;
+        let mobile_1_5gb_30_days = 1000;
+        let mobile_2gb_30days = 1200;
+        let mobile_4_5gb_30_days =  2000;
+        let mobile_11gb_30days = 4000;
+        let mobile_15gb_30days =  5000;
+        let mobile_40_gb_30_days= 10000; 
+        let mobile_75_gb_30_days= 15000;
+        let mobile_30gb_90_days = 27500;
+        let mobile_100gb_100_days = 84992;
+        let mobile_60gb_180_days = 55000;
+        let mobile_120gb_365_days = 110000;
+
+
+        function insertAmount(){
+            var select = document.getElementById('mtnData');
+            var option = select.options[select.selectedIndex];
+
+            if(option.value == 'mtn_75mb_24hrs'){
+                document.getElementById('amountV').value = mtn_75mb_24hrs;
+            }else if(option.value == 'mtn_1gb_24hrs'){
+                document.getElementById('amountV').value = mtn_1gb_24hrs;
+            }else if(option.value == 'mtn_200mb_2days'){
+                document.getElementById('amountV').value = mtn_200mb_2days;
+            }else if(option.value == 'mtn_2_5gb_2days'){
+                document.getElementById('amountV').value = mtn_2_5gb_2days;
+            }else if(option.value == 'mtn_350mb_7days'){
+                document.getElementById('amountV').value = mtn_350mb_7days;
+            }else if(option.value == 'mtn_1gb_7days'){
+                document.getElementById('amountV').value = mtn_1gb_7days;
+            }else if(option.value == 'mtn_6gb_7_days'){
+                document.getElementById('amountV').value = mtn_6gb_7_days;
+            }else if(option.value == 'mtn_750mb_14days'){
+                document.getElementById('amountV').value = mtn_750mb_14days;
+            }else if(option.value == 'mtn_15gb_30days'){
+                document.getElementById('amountV').value = mtn_15gb_30days;
+            }else if(option.value == 'mtn_2gb_30_days'){
+                document.getElementById('amountV').value = mtn_2gb_30_days;
+            }else if(option.value == 'mtn_3gb_30days'){
+                document.getElementById('amountV').value = mtn_3gb_30days;
+            }else if(option.value == 'mtn_45gb_30days'){
+                document.getElementById('amountV').value = mtn_45gb_30days;
+            }else if(option.value == 'mtn_6gb_30days'){
+                document.getElementById('amountV').value = mtn_6gb_30days;
+            }else if(option.value == 'mtn_8gb_30days'){
+                document.getElementById('amountV').value = mtn_8gb_30days;
+            }else if(option.value == 'mtn_10gb_30days'){
+                document.getElementById('amountV').value = mtn_10gb_30days;
+            }else if(option.value == 'mtn_15gb_30_days'){
+                document.getElementById('amountV').value = mtn_15gb_30_days;
+            }else if(option.value == 'mtn_20gb_30_days'){
+                document.getElementById('amountV').value = mtn_20gb_30_days;
+            }else if(option.value == 'mtn_40gb'){
+                document.getElementById('amountV').value = mtn_40gb;
+            }else if(option.value == 'mtn_75gb_30days'){
+                document.getElementById('amountV').value = mtn_75gb_30days;
+            }else if(option.value == 'mtn_110gb_30days'){
+                document.getElementById('amountV').value = mtn_110gb_30days;
+            }else if(option.value == 'mtn_75gb_60days'){
+                document.getElementById('amountV').value = mtn_75gb_60days;
+            }else if(option.value == 'mtn_120gb_60days'){
+                document.getElementById('amountV').value = mtn_120gb_60days;
+            }else if(option.value == 'mtn_150gb_90_days'){
+                document.getElementById('amountV').value = mtn_150gb_90_days;
+            }else if(option.value == 'mtn_250gb_90days'){
+                document.getElementById('amountV').value = mtn_250gb_90days;
+            }else if(option.value == 'mtn_400gb_365days'){
+                document.getElementById('amountV').value = mtn_400gb_365days;
+            }else if(option.value == 'mtn_1000gb_365days'){
+                document.getElementById('amountV').value = mtn_1000gb_365days;
+            }else if(option.value == 'mtn_2000gb_365days'){
+                document.getElementById('amountV').value = mtn_2000gb_365days;
+            }else {
+                document.getElementById('amountV').value = 100;
+            }
+            
+        }
+
+        function insertAAmount(){
+            var select = document.getElementById('airtelData');
+            var option = select.options[select.selectedIndex];
+            if(option.value == 'airtel_75mb10_extra_24hrs'){
+                document.getElementById('amountV').value = airtel_75mb10_extra_24hrs;
+            }else if(option.value == 'airtel_1gb__1day'){
+                document.getElementById('amountV').value = airtel_1gb__1day;
+            }else if(option.value == 'airtel_2gb__2days'){
+                document.getElementById('amountV').value =airtel_2gb__2days;
+            }else if(option.value == 'airtel_350mb__10_extra_7days'){
+                document.getElementById('amountV').value = airtel_350mb__10_extra_7days;
+            }else if(option.value == 'airtel_6gb_7days'){
+                document.getElementById('amountV').value = airtel_6gb_7days;
+            }else if(option.value == 'airtel_750mb'){
+                document.getElementById('amountV').value = airtel_750mb;
+            }else if(option.value == 'airtel_1_5gb'){
+                document.getElementById('amountV').value = airtel_1_5gb;
+            }else if(option.value == 'airtel_2gb_30days'){
+                document.getElementById('amountV').value = airtel_2gb_30days;
+            }else if(option.value == 'airtel_3gb__30days'){
+                document.getElementById('amountV').value = airtel_3gb__30days;
+            }else if(option.value == 'airtel_4_5gb_30days'){
+                document.getElementById('amountV').value = airtel_4_5gb_30days;
+            }else if(option.value == 'airtel_6gb__30days'){
+                document.getElementById('amountV').value = airtel_6gb__30days;
+            }else if(option.value == 'airtel_8gb_30days'){
+                document.getElementById('amountV').value = airtel_8gb_30days;
+            }else if(option.value == 'airtel_11gb_30days'){
+                document.getElementById('amountV').value = airtel_11gb_30days;
+            }else if(option.value == 'airtel_15gb'){
+                document.getElementById('amountV').value = airtel_15gb;
+            }else if(option.value == 'airtel_40gb_30days'){
+                document.getElementById('amountV').value = airtel_40gb_30days;
+            }else if(option.value == 'airtel_75gb_30days'){
+                document.getElementById('amountV').value = airtel_75gb_30days;
+            }else if(option.value == 'airtel_110gb_30days'){
+                document.getElementById('amountV').value = airtel_110gb_30days;
+            }else {
+                document.getElementById('amountV').value = 100;
+
+            }
+        }
+
+        function insertGAmount(){
+            var select = document.getElementById('gloData');
+            var option = select.options[select.selectedIndex];
+            if(option.value == 'glo_90mb'){
+                document.getElementById('amountV').value = glo_90mb;
+            }else if(option.value == 'glo_340mb'){
+                document.getElementById('amountV').value = glo_340mb;
+            }else if(option.value == 'glo_1_05gb'){
+                document.getElementById('amountV').value = glo_1_05gb;
+            }else if(option.value == 'glo_2_3gb'){
+                document.getElementById('amountV').value = glo_2_3gb;
+            }else if(option.value == 'glo_3_75gb'){
+                document.getElementById('amountV').value = glo_3_75gb;
+            }else if(option.value == 'glo_5_25_gb'){
+                document.getElementById('amountV').value = glo_5_25_gb;
+            }else if(option.value == 'glo_7gb'){
+                document.getElementById('amountV').value =glo_7gb;
+            }else if(option.value == 'glo_9gb'){
+                document.getElementById('amountV').value = glo_9gb;
+            }else if(option.value == 'glo_12gb'){
+                document.getElementById('amountV').value = glo_12gb;
+            }else if(option.value == 'glo_1825gb'){
+                document.getElementById('amountV').value =glo_1825gb;
+            }else if(option.value == 'glo_259gb'){
+                document.getElementById('amountV').value = glo_259gb;
+            }else if(option.value == 'glo_50gb'){
+                document.getElementById('amountV').value = glo_50gb;
+            }else if(option.value == 'glo_93gb'){
+                document.getElementById('amountV').value = glo_93gb;
+            }else if(option.value == 'glo_119gb'){
+                document.getElementById('amountV').value = glo_119gb;
+            }else if(option.value == 'glo_138gb'){
+                document.getElementById('amountV').value = glo_138gb;
+            }else {
+                document.getElementById('amountV').value = 100;
+            }
+        }
+        function insertMAmount(){
+            var select = document.getElementById('9mobileData');
+            var option = select.options[select.selectedIndex];
+            if(option.value == '9mobile_100mb_24hrs'){
+                document.getElementById('amountV').value = mobile_100mb_24hrs;
+            }else if(option.value == '9mobile_650mb_24hrs'){
+                document.getElementById('amountV').value = mobile_650mb_24hrs;
+            }else if(option.value == '9mobile_7gb_7_days'){
+                document.getElementById('amountV').value = mobile_7gb_7_days;
+            }else if(option.value == '9mobile_500mb_30days'){
+                document.getElementById('amountV').value = mobile_500mb_30days;
+            }else if(option.value == '9mobile_1_5gb_30_days'){
+                document.getElementById('amountV').value = mobile_1_5gb_30_days;
+            }else if(option.value == '9mobile_2gb_30days'){
+                document.getElementById('amountV').value = mobile_2gb_30days;
+            }else if(option.value == '9mobile_4_5gb_30_days'){
+                document.getElementById('amountV').value = mobile_4_5gb_30_days;
+            }else if(option.value == '9mobile_11gb_30days'){
+                document.getElementById('amountV').value = mobile_11gb_30days;
+            }else if(option.value == '9mobile_15gb_30days'){
+                document.getElementById('amountV').value = mobile_15gb_30days;
+            }else if(option.value == '9mobile_40_gb_30_days'){
+                document.getElementById('amountV').value =  mobile_40_gb_30_days;
+            }else if(option.value == '9mobile_75_gb_30_days'){
+                document.getElementById('amountV').value = mobile_75_gb_30_days;
+            }else if(option.value == '9mobile_30gb_90_days'){
+                document.getElementById('amountV').value =  mobile_30gb_90_days;
+            }else if(option.value == '9mobile_100gb_100_days'){
+                document.getElementById('amountV').value = mobile_100gb_100_days;
+            }else if(option.value == '9mobile_60gb_180_days'){
+                document.getElementById('amountV').value =  mobile_60gb_180_days;
+            }else if(option.value == '9mobile_120gb_365_days'){
+                document.getElementById('amountV').value = mobile_120gb_365_days;
+            }else{
+                document.getElementById('amountV').value = 100;
+            }
+        }
     </script>
-{{-- <div class="row mb-15px">
-<label class="form-label col-form-label col-md-2">Amount</label>
-<div class="col-md-6">
-<input class="form-control" type="text" name ="amount" placeholder="Enter Amount" required />
-</div>
-</div> --}}
-<div class="row mb-15px">
-<div class="col-md-2">
-</div>
-<div class="col-md-9">
-<button type="submit" class="btn btn-primary w-250px">Buy Data</button>
-</div>
-</div>
+
+
 </form>
 </div>
 
