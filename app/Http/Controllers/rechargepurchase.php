@@ -60,7 +60,7 @@ class rechargepurchase extends Controller
                     "created_at" => date('Y-m-d H:i:s'),
                     "updated_at" => date('Y-m-d H:i:s'),
                 ]);
-                DB::table('transactions')
+            DB::table('transactions')
                 ->where('userId', auth()->user()->userId)
                 ->insert([
                     'transactionId' => $this->randomDigit(),
@@ -75,9 +75,9 @@ class rechargepurchase extends Controller
                     "created_at" => date('Y-m-d H:i:s'),
                     "updated_at" => date('Y-m-d H:i:s'),
                 ]);
-            return back()->with('success', 'Transaction Successful !!');
+            return back()->with('toast_success', 'Transaction Successful !!');
         } else {
-            return back()->with('errors', 'Oop!!, Kindly reach out to admin');
+            return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');
         }
     }
 }

@@ -15,6 +15,7 @@ use App\Http\Controllers\deposithistory;
 use App\Http\Controllers\withdrawhistory;
 use App\Http\Controllers\bonushistory;
 use App\Http\Controllers\rechargepurchase;
+use App\Http\Controllers\lightController;
 use App\Http\Controllers\datapurchase;
 use App\Http\Controllers\logout;
 use Illuminate\Support\Facades\Route;
@@ -90,5 +91,8 @@ Route::post('/rechargepurchase', [rechargepurchase::class, 'store'])->name('rech
 
 Route::get('/datapurchase', [datapurchase::class, 'index'])->name('datapurchase');
 Route::post('/datapurchase', [datapurchase::class, 'store'])->name('datapurchase');
+
+Route::get('/electricitypurchase', [lightController::class, 'index'])->name('lightpurchase');
+Route::post('/electricitypurchase', [lightController::class, 'store'])->name('lightpurchase');
 
 Route::get('/logout', [logout::class, 'logout'])->name('logout');

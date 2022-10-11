@@ -48,6 +48,22 @@ class PaymentController extends Controller
                 "created_at" => date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
             ]);
+
+            DB::table('transactions')
+                ->where('userId', auth()->user()->userId)
+                ->insert([
+                    'transactionId' => $this->randomDigit(),
+                    'userId' => auth()->user->userId(),
+                    'username' => auth()->user->username,
+                    'email' => auth()->user->email,
+                    'phoneNumber' => auth()->user->phoneNumber,
+                    'amount' => $request->amount,
+                    'transactionType' => 'Deposit',
+                    'transactionService' => 'Funding Wallet',
+                    'status' => 'CONFIRM',
+                    "created_at" => date('Y-m-d H:i:s'),
+                    "updated_at" => date('Y-m-d H:i:s'),
+                ]);
             return back()->with('toast_success', 'Transaction Successful !!');
         } else {
             return back()->with('toast_error', 'Failed transaction');

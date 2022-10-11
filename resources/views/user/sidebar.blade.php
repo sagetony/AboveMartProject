@@ -110,7 +110,7 @@
 </div>
 
 <div class="menu-item">
-<a href="" class="menu-link">
+<a href="{{ route('lightpurchase') }}" class="menu-link">
 <div class="menu-text">Electricity Payment</div>
 </a>
 </div>
