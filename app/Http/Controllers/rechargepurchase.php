@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class rechargepurchase extends Controller
@@ -27,25 +27,21 @@ class rechargepurchase extends Controller
         $phoneNumber = $request->phoneNumber;
         $productCode = $request->package;
         $amount = $request->amount;
-        $curl = curl_init();
+        $ch = curl_init();
 
-        curl_setopt_array($curl, [
-            CURLOPT_URL => "https://smartrecharge.ng/api/v2/airtime/?api_key={$api}&product_code={$productCode}&phone={$phoneNumber}&amount={$amount}",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-        ]);
+        curl_setopt(
+            $ch,
+            CURLOPT_URL,
+            "https://smartrecharge.ng/api/v2/airtime/?api_key={$api}&product_code={$productCode}&phone={$phoneNumber}&amount={$amount}"
+        );
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        $response = curl_exec($ch);
+        $response = json_decode($response);
 
-        $response = curl_exec($curl);
-
-        curl_close($curl);
-
-        echo $response;
-        if ($response['status'] == true) {
+        // echo $response;
+        if ($response->status == true) {
             DB::table('rcpurchases')
                 ->where('userId', auth()->user()->userId)
                 ->insert([

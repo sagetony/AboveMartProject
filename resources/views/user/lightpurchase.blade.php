@@ -45,29 +45,29 @@
         <label class="form-label col-form-label col-md-2">Select Electricity Service</label>
         <div class="col-md-6">
             <select class="form-select" name="package" id="package">
-                <option value="none">Select Package</option>
+                <option value="none">Select Electricity</option>
                 <option value="jedc_prepaid_custom">JEDC PREPAID</option>
-                <option value="jedc_postpaid_custom">JEDC POSTPAID</option>
+                {{-- <option value="jedc_postpaid_custom">JEDC POSTPAID</option> --}}
                 <option value="phed_prepaid_custom">PHED PREPAID</option>
-                <option value="phed_postpaid_custom">PHED POSTPAID</option>
+                {{-- <option value="phed_postpaid_custom">PHED POSTPAID</option> --}}
                 <option value="ibedc_prepaid_custom">IBEDC PREPAID</option>
-                <option value="ibedc_postpaid_custom">IBEDC POSTPAID</option>
+                {{-- <option value="ibedc_postpaid_custom">IBEDC POSTPAID</option> --}}
                 <option value="ikedc_prepaid_custom">IKEDC PREPAID</option>
-                <option value="ikedc_postpaid_custom">IKEDC POSTPAID</option>
+                {{-- <option value="ikedc_postpaid_custom">IKEDC POSTPAID</option> --}}
                 <option value="ekedc_prepaid_custom">EKEDC PREPAID</option>
-                <option value="ekedc_postpaid_custom">EKEDC POSTPAID</option>
+                {{-- <option value="ekedc_postpaid_custom">EKEDC POSTPAID</option> --}}
                 <option value="aedc_prepaid_custom">AEDC PREPAID</option>
-                <option value="aedc_postpaid_custom">AEDC POSTPAID</option>
+                {{-- <option value="aedc_postpaid_custom">AEDC POSTPAID</option> --}}
                 <option value="kedco_prepaid_custom">KEDCO PREPAID</option>
-                <option value="kedco_postpaid_custom">KEDCO POSTPAID</option>
+                {{-- <option value="kedco_postpaid_custom">KEDCO POSTPAID</option> --}}
                 <option value="kedc_postpaid_custom">KEDC PREPAID</option>
-                <option value="kedc_prepaid_custom">KEDC POSTPAID</option>
+                {{-- <option value="kedc_prepaid_custom">KEDC POSTPAID</option> --}}
                 <option value="yedc_prepaid_custom">YEDC PREPAID</option>
-                <option value="yedc_postpaid_custom">YEDC POSTPAID</option>
+                {{-- <option value="yedc_postpaid_custom">YEDC POSTPAID</option> --}}
                 <option value="bedc_prepaid_custom">BEDC PREPAID</option>
-                <option value="bedc_postpaid_custom">BEDC POSTPAID</option>
+                {{-- <option value="bedc_postpaid_custom">BEDC POSTPAID</option> --}}
                 <option value="eedc_prepaid_custom">EEDC PREPAID</option>
-                <option value="eedc_postpaid_custom">EEDC POSTPAID</option>
+                {{-- <option value="eedc_postpaid_custom">EEDC POSTPAID</option> --}}
             </select>
             <small class="fs-12px text-gray-500-darker">Kindly select a electricity service.</small>
         </div>
