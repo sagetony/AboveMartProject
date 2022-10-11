@@ -99,7 +99,7 @@
 </div>
 
 <div class="menu-item">
-<a href="form_editable.html" class="menu-link">
+<a href="{{ route('rechargeprinting') }}" class="menu-link">
 <div class="menu-text">Recharge Card Printing</div>
 </a>
 </div>

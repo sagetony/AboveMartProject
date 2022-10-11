@@ -35,7 +35,7 @@ class lightController extends Controller
             ->sum('amount');
         $balance = $capital + $bonus - $expenses;
         if ($balance < $request->amount) {
-            return back()->with('toast_error', 'Insufficient');
+            return back()->with('toast_error', 'Insufficient Funds');
         } else {
             if ($request->package == 'none') {
                 return back()->with('toast_error', 'Select an electricity services');
@@ -80,9 +80,9 @@ class lightController extends Controller
                             ->where('userId', auth()->user()->userId)
                             ->insert([
                                 'transactionId' => $this->randomDigit(),
-                                'userId' => auth()->user->userId(),
-                                'username' => auth()->user->username,
-                                'email' => auth()->user->email,
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
                                 'phoneNumber' => auth()->user()->phoneNumber,
                                 'amount' => $request->amount,
                                 'meter' => $request->meterNumber,
@@ -95,9 +95,9 @@ class lightController extends Controller
                             ->where('userId', auth()->user()->userId)
                             ->insert([
                                 'transactionId' => $this->randomDigit(),
-                                'userId' => auth()->user->userId(),
-                                'username' => auth()->user->username,
-                                'email' => auth()->user->email,
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
                                 'phoneNumber' => auth()->user()->phoneNumber,
                                 'amount' => $request->amount,
                                 'transactionType' => 'Electricity',
