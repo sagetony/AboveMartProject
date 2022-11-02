@@ -212,7 +212,7 @@
         let mtn_1gb_24hrs = 300;
         let mtn_200mb_2days = 200;
         let mtn_2_5gb_2days = 500;
-        let mtn_350mb_7days =300
+        let mtn_350mb_7days = 300
         let mtn_1gb_7days = 500;
         let mtn_6gb_7_days =  1500;
         let mtn_750mb_14days = 500;
