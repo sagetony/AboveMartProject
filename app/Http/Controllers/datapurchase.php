@@ -24,28 +24,91 @@ class datapurchase extends Controller
     }
     public function store(Request $request)
     {
-        $api = 'yeuhplp7chfn1oaw0qjkqngnurclh8md';
-        $phoneNumber = $request->phoneNumber;
-        $productCode = $request->package;
-        $amount = $request->amount;
-
-        $curl = curl_init();
-
-        curl_setopt_array($curl, [
-            CURLOPT_URL => "https://smartrecharge.ng/api/v2/directdata/?api_key={$api}&product_code=mtn_1gb__500mb_bonus&phone=07069555553
-            ",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-        ]);
-
-        $response = curl_exec($curl);
-        curl_close($curl);
-        return dd($response);
-        echo $response;
+        $expenses = DB::table('transactions')
+            ->where('userId', auth()->user()->userId)
+            ->where('transactionType', '!=', 'Deposit')
+            ->sum('amount');
+        $capital = DB::table('funds')
+            ->where('userId', auth()->user()->userId)
+            ->sum('amount');
+        $bonus = DB::table('bonuses')
+            ->where('sponsorId', auth()->user()->mySponsorId)
+            ->sum('amount');
+        $balance = $capital + $bonus - $expenses;
+        if ($balance < $request->amount) {
+            return back()->with('toast_error', 'Insufficient Funds');
+        } else {
+            if ($request->network == 'mtn') {
+                $api = 'yeuhplp7chfn1oaw0qjkqngnurclh8md';
+                $phoneNumber = $request->phoneNumber;
+                $productCode = $request->packageMTN;
+                $amount = $request->amount;
+                $ch = curl_init();
+                curl_setopt(
+                    $ch,
+                    CURLOPT_URL,
+                    "https://smartrecharge.ng/api/v2/directdata/?api_key={$api}&product_code={$productCode}&phone={$phoneNumber}"
+                );
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                $result = curl_exec($ch);
+                $result = json_decode($result);
+                return back()->with('toast_success', 'Successful');
+            } elseif ($request->network == 'glo') {
+                $api = 'yeuhplp7chfn1oaw0qjkqngnurclh8md';
+                $phoneNumber = $request->phoneNumber;
+                $productCode = $request->packageGLO;
+                $amount = $request->amount;
+                $ch = curl_init();
+                curl_setopt(
+                    $ch,
+                    CURLOPT_URL,
+                    "https://smartrecharge.ng/api/v2/directdata/?api_key={$api}&product_code={$productCode}&phone={$phoneNumber}"
+                );
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                $result = curl_exec($ch);
+                $result = json_decode($result);
+                return back()->with('toast_success', 'Successful');
+            } elseif ($request->network == 'airtel') {
+                $api = 'yeuhplp7chfn1oaw0qjkqngnurclh8md';
+                $phoneNumber = $request->phoneNumber;
+                $productCode = $request->packageAirtel;
+                $amount = $request->amount;
+                $ch = curl_init();
+                curl_setopt(
+                    $ch,
+                    CURLOPT_URL,
+                    "https://smartrecharge.ng/api/v2/directdata/?api_key={$api}&product_code={$productCode}&phone={$phoneNumber}"
+                );
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                $result = curl_exec($ch);
+                $result = json_decode($result);
+                return back()->with('toast_success', 'Successful');
+            } elseif ($request->network == '9mobile') {
+                $api = 'yeuhplp7chfn1oaw0qjkqngnurclh8md';
+                $phoneNumber = $request->phoneNumber;
+                $productCode = $request->package9MOBILE;
+                $amount = $request->amount;
+                $ch = curl_init();
+                curl_setopt(
+                    $ch,
+                    CURLOPT_URL,
+                    "https://smartrecharge.ng/api/v2/directdata/?api_key={$api}&product_code={$productCode}&phone={$phoneNumber}"
+                );
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                $result = curl_exec($ch);
+                $result = json_decode($result);
+                return back()->with('toast_success', 'Successful');
+            } else {
+                return back()->with('toast_error', 'Contact Admin');
+            }
+        }
     }
 }

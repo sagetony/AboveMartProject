@@ -72,7 +72,34 @@ class rechargeprinting extends Controller
                     "created_at" => date('Y-m-d H:i:s'),
                     "updated_at" => date('Y-m-d H:i:s'),
                 ]);
-            return back()->with('toast_success', 'Transaction Successful !!');
+                $api = 'ps_test_2cd276972315c5554702af119a1d15a290bb7aa0d3d580a7230c20508e3fa417';
+               
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://www.payscribe.ng/sandbox/rechargecard',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>'{
+                "qty": 1,
+                "amount": "50",
+                "display_name": "Payscribe"
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ps_live_b9a258625363b2a3863e45053da267134152cd5606029bcfe1a39e71e1f72c3c'
+            ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+            echo $response;
+                return back()->with('toast_success', 'Transaction Successful !!');
         }
     }
 }

@@ -50,7 +50,7 @@
     <div class="row mb-15px">
         <label class="form-label col-form-label col-md-2">Select Network</label>
         <div class="col-md-6">
-            <select class="form-select" name="package" id="network" onChange="update()">
+            <select class="form-select" name="network" id="network" onChange="update()">
                 <option value="">Select Package</option>
                 <option value="mtn">MTN</option>
                 <option value="airtel">AIRTEL</option>
@@ -64,7 +64,7 @@
     <div class="row mb-15px" style="display: none;" id="mtn">
         <label class="form-label col-form-label col-md-2">Select Package</label>
         <div class="col-md-6">
-            <select class="form-select" name="package" id="mtnData" onChange="insertAmount()">
+            <select class="form-select" name="packageMTN" id="mtnData" onChange="insertAmount()">
                 <option value="mtn_75mb_24hrs">MTN 75MB 24hrs</option>
                 <option value="mtn_1gb_24hrs">MTN 1GB 24hrs</option>
                 <option value="mtn_200mb_2days">MTN 200MB 2days</option>
@@ -73,10 +73,10 @@
                 <option value="mtn_1gb_7days">MTN 1GB 7Days</option>
                 <option value="mtn_6gb_7_days">MTN 6GB 7 days</option>
                 <option value="mtn_750mb_14days">MTN 750MB 14days</option>
-                <option value="mtn_15gb_30days">MTN 1.5GB 30days</option>
+                <option value="mtn_1_5gb_30days">MTN 1.5GB 30days</option>
                 <option value="mtn_2gb_30_days">MTN 2GB 30 Days</option>
                 <option value="mtn_3gb_30days">MTN 3GB 30days</option>
-                <option value="mtn_45gb_30days">MTN 4.5GB 30days</option>
+                <option value="mtn_4_5gb_30days">MTN 4.5GB 30days</option>
                 <option value="mtn_6gb_30days">MTN 6GB 30days</option>
                 <option value="mtn_8gb_30days">MTN 8GB 30days</option>
                 <option value="mtn_10gb_30days">MTN 10GB 30days</option>
@@ -98,7 +98,7 @@
     <div class="row mb-15px" style="display: none;" id="airtel">
         <label class="form-label col-form-label col-md-2">Select Package</label>
         <div class="col-md-6">
-            <select class="form-select" name="package" id="airtelData" onChange="insertAAmount()">
+            <select class="form-select" name="packageAirtel" id="airtelData" onChange="insertAAmount()">
                 <option value="airtel_75mb10_extra_24hrs"> Airtel 75MB+10% Extra 24hrs </option>
                 <option value="airtel_1gb__1day">Airtel 1GB 1day</option>
                 <option value="airtel_2gb__2days"> Airtel 2GB 2Days</option>
@@ -123,16 +123,16 @@
     <div class="row mb-15px" style="display: none;" id="glo">
         <label class="form-label col-form-label col-md-2">Select Package</label>
         <div class="col-md-6">
-            <select class="form-select" name="package" id="gloData" onChange="insertGAmount()">
-                <option value="glo_90mb">GLO 90MB</option>
-                <option value="glo_340mb">GLO 340MB</option>
-                <option value="glo_1_05gb">GLO 1.05GB</option>
-                <option value="glo_2_3gb">GLO 2.03GB</option>
+            <select class="form-select" name="packageGLO" id="gloData" onChange="insertGAmount()">
+                <option value="glo_100mb_1_day">GLO 100MB 1 Day</option>
+                <option value="glo_350mb_2_days">GLO 350MB 2 DAYS</option>
+                <option value="glo_1_35gb_14days">GLO 1.35GB 14Days</option>
+                <option value="glo_2_5gb">GLO 2.5GB</option>
                 <option value="glo_3_75gb">GLO 3.75GB</option>
-                <option value="glo_5_25_gb">GLO 5.25GB</option>
-                <option value="glo_7gb">GLO 7GB</option>
-                <option value="glo_9gb">GLO 9GB</option>
-                <option value="glo_12gb">GLO 12GB</option>
+                <option value="glo_5_8_gb">GLO 5.8 GB</option>
+                <option value="glo_7_7_gb">GLO 7.7 GB</option>
+                <option value="glo_10gb">GLO 10GB</option>
+                <option value="glo_13_5_gb">GLO 13.5 GB</option>
                 <option value="glo_1825gb">GLO 18.25GB</option>
                 <option value="glo_259gb">GLO 29.05GB</option>
                 <option value="glo_50gb">GLO 50GB</option>
@@ -146,7 +146,7 @@
     <div class="row mb-15px" style="display: none;" id="9mobile">
         <label class="form-label col-form-label col-md-2">Select Package</label>
         <div class="col-md-6">
-            <select class="form-select" name="package" id="9mobileData" onChange="insertMAmount()">
+            <select class="form-select" name="package9Mobile" id="9mobileData" onChange="insertMAmount()">
                 <option value="9mobile_100mb_24hrs">9Mobile 100MB 24hrs </option>
                 <option value="9mobile_650mb_24hrs">9Mobile 650MB 24hrs </option>
                 <option value="9mobile_7gb_7_days">9Mobile 7GB 7 Days </option>
@@ -200,7 +200,7 @@
                 document.getElementById("9mobile").style.display = "none";
                 document.getElementById("mtn").style.display = "none";
                 document.getElementById("airtel").style.display = "none";
-            }else{
+            }else if(option.value == '9mobile'){
                 document.getElementById("9mobile").style.display = "block";
                 document.getElementById("mtn").style.display = "none";
                 document.getElementById("airtel").style.display = "none";
@@ -216,10 +216,10 @@
         let mtn_1gb_7days = 500;
         let mtn_6gb_7_days =  1500;
         let mtn_750mb_14days = 500;
-        let mtn_15gb_30days = 1000;
+        let mtn_1_5gb_30days = 1000;
         let mtn_2gb_30_days = 1200;
         let mtn_3gb_30days = 1500;
-        let mtn_45gb_30days = 2000;
+        let mtn_4_5gb_30days = 2000;
         let mtn_6gb_30days = 2500;
         let mtn_8gb_30days = 3000;
         let mtn_10gb_30days = 3500;
@@ -235,15 +235,15 @@
         let mtn_400gb_365days = 120000;
         let mtn_1000gb_365days = 250000;
         let mtn_2000gb_365days = 450000;
-        let glo_90mb = 100;
-        let glo_340mb = 200;
-        let glo_1_05gb = 500;
-        let glo_2_3gb = 1000;
+        let glo_100mb_1_day = 100;
+        let glo_350mb_2_days = 200;
+        let glo_1_35gb_14days = 500;
+        let glo_2_5gb = 1000;
         let glo_3_75gb = 1500;
-        let glo_5_25_gb = 2000;
-        let glo_7gb = 2500;
-        let glo_9gb = 3000;
-        let glo_12gb = 4000;
+        let glo_5_8_gb = 2000;
+        let glo_7_7_gb = 2500;
+        let glo_10gb = 3000;
+        let glo_13_5_gb = 4000;
         let glo_1825gb = 5000;
         let glo_259gb =  8000;
         let glo_50gb = 10000;
@@ -305,14 +305,14 @@
                 document.getElementById('amountV').value = mtn_6gb_7_days;
             }else if(option.value == 'mtn_750mb_14days'){
                 document.getElementById('amountV').value = mtn_750mb_14days;
-            }else if(option.value == 'mtn_15gb_30days'){
-                document.getElementById('amountV').value = mtn_15gb_30days;
+            }else if(option.value == 'mtn_1_5gb_30days'){
+                document.getElementById('amountV').value = mtn_1_5gb_30days;
             }else if(option.value == 'mtn_2gb_30_days'){
                 document.getElementById('amountV').value = mtn_2gb_30_days;
             }else if(option.value == 'mtn_3gb_30days'){
                 document.getElementById('amountV').value = mtn_3gb_30days;
-            }else if(option.value == 'mtn_45gb_30days'){
-                document.getElementById('amountV').value = mtn_45gb_30days;
+            }else if(option.value == 'mtn_4_5gb_30days'){
+                document.getElementById('amountV').value = mtn_4_5gb_30days;
             }else if(option.value == 'mtn_6gb_30days'){
                 document.getElementById('amountV').value = mtn_6gb_30days;
             }else if(option.value == 'mtn_8gb_30days'){
@@ -395,24 +395,24 @@
         function insertGAmount(){
             var select = document.getElementById('gloData');
             var option = select.options[select.selectedIndex];
-            if(option.value == 'glo_90mb'){
-                document.getElementById('amountV').value = glo_90mb;
-            }else if(option.value == 'glo_340mb'){
-                document.getElementById('amountV').value = glo_340mb;
-            }else if(option.value == 'glo_1_05gb'){
-                document.getElementById('amountV').value = glo_1_05gb;
-            }else if(option.value == 'glo_2_3gb'){
-                document.getElementById('amountV').value = glo_2_3gb;
+            if(option.value == 'glo_100mb_1_day'){
+                document.getElementById('amountV').value = glo_100mb_1_day;
+            }else if(option.value == 'glo_350mb_2_days'){
+                document.getElementById('amountV').value = glo_350mb_2_days;
+            }else if(option.value == 'glo_1_35gb_14days'){
+                document.getElementById('amountV').value = glo_1_35gb_14days;
+            }else if(option.value == 'glo_2_5gb'){
+                document.getElementById('amountV').value = glo_2_5gb;
             }else if(option.value == 'glo_3_75gb'){
                 document.getElementById('amountV').value = glo_3_75gb;
-            }else if(option.value == 'glo_5_25_gb'){
-                document.getElementById('amountV').value = glo_5_25_gb;
-            }else if(option.value == 'glo_7gb'){
-                document.getElementById('amountV').value =glo_7gb;
-            }else if(option.value == 'glo_9gb'){
-                document.getElementById('amountV').value = glo_9gb;
-            }else if(option.value == 'glo_12gb'){
-                document.getElementById('amountV').value = glo_12gb;
+            }else if(option.value == 'glo_5_8_gb'){
+                document.getElementById('amountV').value = glo_5_8_gb;
+            }else if(option.value == 'glo_7_7_gb'){
+                document.getElementById('amountV').value =glo_7_7_gb;
+            }else if(option.value == 'glo_10gb'){
+                document.getElementById('amountV').value = glo_10gb;
+            }else if(option.value == 'glo_13_5_gb'){
+                document.getElementById('amountV').value = glo_13_5_gb;
             }else if(option.value == 'glo_1825gb'){
                 document.getElementById('amountV').value =glo_1825gb;
             }else if(option.value == 'glo_259gb'){
