@@ -61,8 +61,14 @@
             <small class="fs-12px text-gray-500-darker">Kindly select a valid network.</small>
         </div>
     </div>
+    <div class="row mb-15px">
+        <label class="form-label col-form-label col-md-2">Select Amount</label>
+        <div class="col-md-6">
+            <input class="form-control" type="text" name ="amount" placeholder="Enter Amount" required />
 
-    <div class="row mb-15px" style="display: none;" id="mtn">
+        </div>
+    </div>
+    {{-- <div class="row mb-15px" style="display: none;" id="mtn">
         <label class="form-label col-form-label col-md-2">Select Package</label>
         <div class="col-md-6">
             <select class="form-select" name="package" id="mtnData" onChange="insertAmount()">
@@ -106,19 +112,14 @@
                 <option value="1000">9mobile 1000</option>
             </select>
         </div>
-    </div>
+    </div> --}}
     <div class="row mb-15px">
         <label class="form-label col-form-label col-md-2">Quantity</label>
         <div class="col-md-6">
         <input class="form-control" type="number" value="1" id="quantity" name ="quantity" required />
         </div>
     </div>
-    {{-- <div class="row mb-15px" id="amount" style="display: none;">
-    <label class="form-label col-form-label col-md-2">Amount</label>
-    <div class="col-md-6">
-    <input class="form-control" type="text" id="amountV" name ="amount" value="100" placeholder="Enter Amount" required />
-    </div>
-    </div> --}}
+    
     <div class="row mb-15px">
     <div class="col-md-2">
     </div>

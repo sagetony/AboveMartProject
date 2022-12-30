@@ -70,22 +70,63 @@ class rechargepurchase extends Controller
                         "created_at" => date('Y-m-d H:i:s'),
                         "updated_at" => date('Y-m-d H:i:s'),
                     ]);
-                DB::table('transactions')
-                    ->where('userId', auth()->user()->userId)
-                    ->insert([
-                        'transactionId' => $this->randomDigit(),
-                        'userId' => auth()->user()->userId,
-                        'username' => auth()->user()->username,
-                        'email' => auth()->user()->email,
-                        'phoneNumber' => $request->phoneNumber,
-                        'amount' => $request->amount,
-                        'transactionType' => 'Recharge Card',
-                        'transactionService' => $request->package,
-                        'status' => 'CONFIRM',
-                        "created_at" => date('Y-m-d H:i:s'),
-                        "updated_at" => date('Y-m-d H:i:s'),
-                    ]);
-                return back()->with('toast_success', 'Transaction Successful !!');
+                if ($request->payment == 'wallet') {
+                    DB::table('transactions')
+                        ->where('userId', auth()->user()->userId)
+                        ->insert([
+                            'transactionId' => $this->randomDigit(),
+                            'userId' => auth()->user()->userId,
+                            'username' => auth()->user()->username,
+                            'email' => auth()->user()->email,
+                            'phoneNumber' => $request->phoneNumber,
+                            'amount' => $request->amount,
+                            'transactionType' => 'Recharge Card',
+                            'transactionService' => $request->package,
+                            'status' => 'CONFIRM',
+                            'paymentMethod' => 'wallet',
+                            "created_at" => date('Y-m-d H:i:s'),
+                            "updated_at" => date('Y-m-d H:i:s'),
+                        ]);
+                    return back()->with('toast_success', 'Transaction Successful !!');
+                } elseif ($request->payment == 'epin') {
+                    DB::table('transactions')
+                        ->where('userId', auth()->user()->userId)
+                        ->insert([
+                            'transactionId' => $this->randomDigit(),
+                            'userId' => auth()->user()->userId,
+                            'username' => auth()->user()->username,
+                            'email' => auth()->user()->email,
+                            'phoneNumber' => $request->phoneNumber,
+                            'amount' => $request->amount,
+                            'transactionType' => 'Recharge Card',
+                            'transactionService' => $request->package,
+                            'status' => 'CONFIRM',
+                            'paymentMethod' => 'epin',
+                            "created_at" => date('Y-m-d H:i:s'),
+                            "updated_at" => date('Y-m-d H:i:s'),
+                        ]);
+                    return back()->with('toast_success', 'Transaction Successful !!');
+                } elseif ($request->payment == 'promo') {
+                    DB::table('transactions')
+                        ->where('userId', auth()->user()->userId)
+                        ->insert([
+                            'transactionId' => $this->randomDigit(),
+                            'userId' => auth()->user()->userId,
+                            'username' => auth()->user()->username,
+                            'email' => auth()->user()->email,
+                            'phoneNumber' => $request->phoneNumber,
+                            'amount' => $request->amount,
+                            'transactionType' => 'Recharge Card',
+                            'transactionService' => $request->package,
+                            'status' => 'CONFIRM',
+                            'paymentMethod' => 'promo',
+                            "created_at" => date('Y-m-d H:i:s'),
+                            "updated_at" => date('Y-m-d H:i:s'),
+                        ]);
+                    return back()->with('toast_success', 'Transaction Successful !!');
+                } else {
+                    return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');
+                }
             } else {
                 return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');
             }

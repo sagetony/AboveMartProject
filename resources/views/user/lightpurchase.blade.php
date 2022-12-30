@@ -79,12 +79,43 @@
         <input class="form-control" type="number" id="meter" name ="meterNumber" placeholder="Enter Meter Number" required />
         </div>
     </div>
+    
     <div class="row mb-15px" id="amount">
     <label class="form-label col-form-label col-md-2">Amount</label>
     <div class="col-md-6">
     <input class="form-control" type="number" id="amountV" name ="amount" placeholder="Enter Amount" required />
     </div>
     </div>
+    <div class="row mb-15px">
+        <label class="form-label col-form-label col-md-2">Select Method Payment</label>
+        <div class="col-md-6">
+            <select class="form-select" name="package" id="payment" onChange="updatepaymentMethod()">
+                <option value="wallet">Main Wallet</option>
+                <option value="epin">E-Pin</option>
+                <option value="promo">Promo Wallet</option>
+            </select>
+        </div>
+    </div>
+    <div id="walletpayment" style="display:none;">
+    </div>
+    <div id="promopayment"  style="display:none;">
+        <div class="mb-3">
+        <label class="col-sm-6 col-form-label">Promo Amount($)</label>
+            <div class="col-sm-6">
+                <input type="text" name="promoamount" class="form-control" id="promoamount" placeholder="0" value="0" >
+            </div>
+        </div> 
+        <p style ="color:red; font-size:14px;">Note: Maximum 50% can be use from promo wallet !</p>
+    </div>
+    <div id="epinpayment"  style="display:none;">
+        <div class="mb-3">
+            <label class="col-sm-6 col-form-label">E-Pin</label>
+        <div class="col-sm-6">
+            <input type="text" name="epin" class="form-control" id="epin" >
+        </div>
+        </div>
+    </div>
+    
     <div class="row mb-15px">
     <div class="col-md-2">
     </div>

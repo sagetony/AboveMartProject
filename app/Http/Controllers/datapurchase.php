@@ -54,7 +54,83 @@ class datapurchase extends Controller
                 curl_setopt($ch, CURLOPT_POST, true);
                 $result = curl_exec($ch);
                 $result = json_decode($result);
-                return back()->with('toast_success', 'Successful');
+
+                if ($response->status == true) {
+                    DB::table('datapurchases')
+                        ->where('userId', auth()->user()->userId)
+                        ->insert([
+                            'transactionId' => $this->randomDigit(),
+                            'userId' => auth()->user()->userId,
+                            'username' => auth()->user()->username,
+                            'email' => auth()->user()->email,
+                            'phoneNumber' => $request->phoneNumber,
+                            'amount' => $request->amount,
+                            'network' => $request->network,
+                            'product' => $request->amount,
+                            'status' => 'CONFIRM',
+                            "created_at" => date('Y-m-d H:i:s'),
+                            "updated_at" => date('Y-m-d H:i:s'),
+                        ]);
+                    if ($request->payment == 'wallet') {
+                        DB::table('transactions')
+                            ->where('userId', auth()->user()->userId)
+                            ->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => $request->phoneNumber,
+                                'amount' => $request->amount,
+                                'transactionType' => 'Data Purchase',
+                                'transactionService' => $request->network,
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'wallet',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                        return back()->with('toast_success', 'Transaction Successful !!');
+                    } elseif ($request->payment == 'epin') {
+                        DB::table('transactions')
+                            ->where('userId', auth()->user()->userId)
+                            ->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => $request->phoneNumber,
+                                'amount' => $request->amount,
+                                'transactionType' => 'Data Purchase',
+                                'transactionService' => $request->network,
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'epin',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                        return back()->with('toast_success', 'Transaction Successful !!');
+                    } elseif ($request->payment == 'promo') {
+                        DB::table('transactions')
+                            ->where('userId', auth()->user()->userId)
+                            ->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => $request->phoneNumber,
+                                'amount' => $request->amount,
+                                'transactionType' => 'Data Purchase',
+                                'transactionService' => $request->network,
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'promo',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                        return back()->with('toast_success', 'Transaction Successful !!');
+                    } else {
+                        return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');
+                    }
+                } else {
+                    return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');
+                }
             } elseif ($request->network == 'glo') {
                 $api = 'yeuhplp7chfn1oaw0qjkqngnurclh8md';
                 $phoneNumber = $request->phoneNumber;
@@ -71,7 +147,82 @@ class datapurchase extends Controller
                 curl_setopt($ch, CURLOPT_POST, true);
                 $result = curl_exec($ch);
                 $result = json_decode($result);
-                return back()->with('toast_success', 'Successful');
+                if ($response->status == true) {
+                    DB::table('datapurchases')
+                        ->where('userId', auth()->user()->userId)
+                        ->insert([
+                            'transactionId' => $this->randomDigit(),
+                            'userId' => auth()->user()->userId,
+                            'username' => auth()->user()->username,
+                            'email' => auth()->user()->email,
+                            'phoneNumber' => $request->phoneNumber,
+                            'amount' => $request->amount,
+                            'network' => $request->network,
+                            'product' => $request->amount,
+                            'status' => 'CONFIRM',
+                            "created_at" => date('Y-m-d H:i:s'),
+                            "updated_at" => date('Y-m-d H:i:s'),
+                        ]);
+                    if ($request->payment == 'wallet') {
+                        DB::table('transactions')
+                            ->where('userId', auth()->user()->userId)
+                            ->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => $request->phoneNumber,
+                                'amount' => $request->amount,
+                                'transactionType' => 'Data Purchase',
+                                'transactionService' => $request->network,
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'wallet',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                        return back()->with('toast_success', 'Transaction Successful !!');
+                    } elseif ($request->payment == 'epin') {
+                        DB::table('transactions')
+                            ->where('userId', auth()->user()->userId)
+                            ->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => $request->phoneNumber,
+                                'amount' => $request->amount,
+                                'transactionType' => 'Data Purchase',
+                                'transactionService' => $request->network,
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'epin',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                        return back()->with('toast_success', 'Transaction Successful !!');
+                    } elseif ($request->payment == 'promo') {
+                        DB::table('transactions')
+                            ->where('userId', auth()->user()->userId)
+                            ->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => $request->phoneNumber,
+                                'amount' => $request->amount,
+                                'transactionType' => 'Data Purchase',
+                                'transactionService' => $request->network,
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'promo',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                        return back()->with('toast_success', 'Transaction Successful !!');
+                    } else {
+                        return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');
+                    }
+                } else {
+                    return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');
+                }
             } elseif ($request->network == 'airtel') {
                 $api = 'yeuhplp7chfn1oaw0qjkqngnurclh8md';
                 $phoneNumber = $request->phoneNumber;
@@ -88,7 +239,82 @@ class datapurchase extends Controller
                 curl_setopt($ch, CURLOPT_POST, true);
                 $result = curl_exec($ch);
                 $result = json_decode($result);
-                return back()->with('toast_success', 'Successful');
+                if ($response->status == true) {
+                    DB::table('datapurchases')
+                        ->where('userId', auth()->user()->userId)
+                        ->insert([
+                            'transactionId' => $this->randomDigit(),
+                            'userId' => auth()->user()->userId,
+                            'username' => auth()->user()->username,
+                            'email' => auth()->user()->email,
+                            'phoneNumber' => $request->phoneNumber,
+                            'amount' => $request->amount,
+                            'network' => $request->network,
+                            'product' => $request->amount,
+                            'status' => 'CONFIRM',
+                            "created_at" => date('Y-m-d H:i:s'),
+                            "updated_at" => date('Y-m-d H:i:s'),
+                        ]);
+                    if ($request->payment == 'wallet') {
+                        DB::table('transactions')
+                            ->where('userId', auth()->user()->userId)
+                            ->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => $request->phoneNumber,
+                                'amount' => $request->amount,
+                                'transactionType' => 'Data Purchase',
+                                'transactionService' => $request->network,
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'wallet',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                        return back()->with('toast_success', 'Transaction Successful !!');
+                    } elseif ($request->payment == 'epin') {
+                        DB::table('transactions')
+                            ->where('userId', auth()->user()->userId)
+                            ->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => $request->phoneNumber,
+                                'amount' => $request->amount,
+                                'transactionType' => 'Data Purchase',
+                                'transactionService' => $request->network,
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'epin',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                        return back()->with('toast_success', 'Transaction Successful !!');
+                    } elseif ($request->payment == 'promo') {
+                        DB::table('transactions')
+                            ->where('userId', auth()->user()->userId)
+                            ->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => $request->phoneNumber,
+                                'amount' => $request->amount,
+                                'transactionType' => 'Data Purchase',
+                                'transactionService' => $request->network,
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'promo',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                        return back()->with('toast_success', 'Transaction Successful !!');
+                    } else {
+                        return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');
+                    }
+                } else {
+                    return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');
+                }
             } elseif ($request->network == '9mobile') {
                 $api = 'yeuhplp7chfn1oaw0qjkqngnurclh8md';
                 $phoneNumber = $request->phoneNumber;
@@ -105,7 +331,82 @@ class datapurchase extends Controller
                 curl_setopt($ch, CURLOPT_POST, true);
                 $result = curl_exec($ch);
                 $result = json_decode($result);
-                return back()->with('toast_success', 'Successful');
+                if ($response->status == true) {
+                    DB::table('datapurchases')
+                        ->where('userId', auth()->user()->userId)
+                        ->insert([
+                            'transactionId' => $this->randomDigit(),
+                            'userId' => auth()->user()->userId,
+                            'username' => auth()->user()->username,
+                            'email' => auth()->user()->email,
+                            'phoneNumber' => $request->phoneNumber,
+                            'amount' => $request->amount,
+                            'network' => $request->network,
+                            'product' => $request->amount,
+                            'status' => 'CONFIRM',
+                            "created_at" => date('Y-m-d H:i:s'),
+                            "updated_at" => date('Y-m-d H:i:s'),
+                        ]);
+                    if ($request->payment == 'wallet') {
+                        DB::table('transactions')
+                            ->where('userId', auth()->user()->userId)
+                            ->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => $request->phoneNumber,
+                                'amount' => $request->amount,
+                                'transactionType' => 'Data Purchase',
+                                'transactionService' => $request->network,
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'wallet',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                        return back()->with('toast_success', 'Transaction Successful !!');
+                    } elseif ($request->payment == 'epin') {
+                        DB::table('transactions')
+                            ->where('userId', auth()->user()->userId)
+                            ->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => $request->phoneNumber,
+                                'amount' => $request->amount,
+                                'transactionType' => 'Data Purchase',
+                                'transactionService' => $request->network,
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'epin',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                        return back()->with('toast_success', 'Transaction Successful !!');
+                    } elseif ($request->payment == 'promo') {
+                        DB::table('transactions')
+                            ->where('userId', auth()->user()->userId)
+                            ->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => $request->phoneNumber,
+                                'amount' => $request->amount,
+                                'transactionType' => 'Data Purchase',
+                                'transactionService' => $request->network,
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'promo',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                        return back()->with('toast_success', 'Transaction Successful !!');
+                    } else {
+                        return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');
+                    }
+                } else {
+                    return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');
+                }
             } else {
                 return back()->with('toast_error', 'Contact Admin');
             }

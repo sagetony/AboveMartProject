@@ -2,6 +2,7 @@
 
 <script src="assets/js/vendor.min.js" type="df5f205cfe6643099cf45599-text/javascript"></script>
 <script src="assets/js/app.min.js" type="df5f205cfe6643099cf45599-text/javascript"></script>
+<script src="assets/js/main.js" type="text/javascript"></script>
 @include('sweetalert::alert')
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false" type="df5f205cfe6643099cf45599-text/javascript"></script>
 <script src="assets/plugins/superbox/jquery.superbox.min.js" type="df5f205cfe6643099cf45599-text/javascript"></script>
