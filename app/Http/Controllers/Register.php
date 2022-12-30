@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
-
 class Register extends Controller
 {
     public function index(Request $request)
@@ -41,10 +40,12 @@ class Register extends Controller
             'password' => ['required', 'max:39', 'min:8', 'confirmed'],
         ]);
         if ($validator->fails()) {
-            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+            return back()
+                ->with('toast_error', $validator->messages()->all()[0])
+                ->withInput();
         }
 
-        if (isset($request->sponsorId)) {
+        if (isset($request->sponsor)) {
             $user = User::create([
                 'userId' => $this->randomDigit(),
                 'firstName' => $request->firstname,
@@ -53,7 +54,7 @@ class Register extends Controller
                 'email' => $request->email,
                 'phoneNumber' => $request->phoneNumber,
                 'country' => $request->country,
-                'sponsor' => $request->sponsorId,
+                'sponsor' => $request->sponsor,
                 'mySponsorId' => $this->randomDigit(),
                 'status' => 'ACTIVE',
                 'emailVerified' => 'NO',
@@ -76,8 +77,6 @@ class Register extends Controller
                 'downlineFive' => 'Admin',
                 'downlineSix' => 'Admin',
                 'downlineSeven' => 'Admin',
-
-
             ]);
 
             // $user->attachRole('user');
@@ -94,8 +93,7 @@ class Register extends Controller
 
             return back()->withToastSuccess('Please check your email and activate your account');
         } else {
-
-            $user =  User::create([
+            $user = User::create([
                 'userId' => $this->randomDigit(),
                 'firstName' => $request->firstname,
                 'lastName' => $request->lastname,
@@ -126,7 +124,6 @@ class Register extends Controller
                 'downlineFive' => 'Admin',
                 'downlineSix' => 'Admin',
                 'downlineSeven' => 'Admin',
-
             ]);
 
             // $user->attachRole('user');

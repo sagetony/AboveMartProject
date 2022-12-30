@@ -34,6 +34,27 @@ class package extends Controller
         $withdrawamount = DB::table('withdraws')
             ->where('userId', auth()->user()->userId)
             ->sum('amount');
+        $uplineOne = DB::table('users')
+            ->where('uplineOne', '!=', 'Admin')
+            ->first();
+        $uplineTwo = DB::table('users')
+            ->where('uplineTwo', '!=', 'Admin')
+            ->first();
+        $uplineThree = DB::table('users')
+            ->where('uplineThree', '!=', 'Admin')
+            ->first();
+        $uplineFour = DB::table('users')
+            ->where('uplineFour', '!=', 'Admin')
+            ->first();
+        $uplineFive = DB::table('users')
+            ->where('uplineFive', '!=', 'Admin')
+            ->first();
+        $uplineSix = DB::table('users')
+            ->where('uplineSix', '!=', 'Admin')
+            ->first();
+        $uplineSeven = DB::table('users')
+            ->where('uplineSeven', '!=', 'Admin')
+            ->first();
         $totalamount = $walletamount - $withdrawamount;
 
         DB::table('transactions')
@@ -583,6 +604,8 @@ class package extends Controller
                 } else {
                     if ($request->package == 'Bronze') {
                         $goldenbonus = 5000;
+                        $bronzepoint = 0.15;
+
                         buypackage::create([
                             'transactionId' => $this->randomDigit(),
                             'userId' => auth()->user()->userId,
@@ -596,11 +619,11 @@ class package extends Controller
                             'status' => 'Confirm',
                             'dayCounter' => 0,
                         ]);
+
                         $data = DB::table('users')
                             ->where('userId', auth()->user()->userId)
                             ->where('sponsor', 'Admin')
                             ->first();
-                        $bronzepoint = 0.15;
                         $oldpoint = $data->point;
                         $newpoint = $oldpoint + $bronzepoint;
 
@@ -610,6 +633,349 @@ class package extends Controller
                         DB::table('users')
                             ->where('userId', auth()->user()->userId)
                             ->update(['package' => $datapackage->packageName]);
+
+                        // Bonus Package
+
+                        // Uplines
+
+                        if ($uplineOne != null) {
+                            DB::table('bonuses')->insert([
+                                'bonusId' => $this->randomDigit(),
+                                'sponsor' => auth()->user()->uplineOne,
+                                'sponsorId' => auth()->user()->uplineOne,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->username,
+                                'amount' => 1000,
+                                'package' => 'Package Bonus',
+                                'status' => 'CONFRIM',
+                                'dayCounter' => 0,
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                            DB::table('transactions')->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => $uplineOne->userId,
+                                'username' => $uplineOne->username,
+                                'email' => $uplineOne->email,
+                                'phoneNumber' => $uplineOne->phoneNumber,
+                                'amount' => 1000,
+                                'transactionType' => 'Package Bonus',
+                                'transactionService' => 'Mentor Bonus',
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'commission',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                            if (auth()->user()->uplineTwo != 'Admin') {
+                                DB::table('bonuses')->insert([
+                                    'bonusId' => $this->randomDigit(),
+                                    'sponsor' => auth()->user()->uplineTwo,
+                                    'sponsorId' => auth()->user()->uplineTwo,
+                                    'username' => auth()->user()->username,
+                                    'email' => auth()->user()->username,
+                                    'amount' => 500,
+                                    'package' => 'Package Bonus',
+                                    'status' => 'CONFRIM',
+                                    'dayCounter' => 0,
+                                    "created_at" => date('Y-m-d H:i:s'),
+                                    "updated_at" => date('Y-m-d H:i:s'),
+                                ]);
+                                DB::table('transactions')->insert([
+                                    'transactionId' => $this->randomDigit(),
+                                    'userId' => $uplineTwo->userId,
+                                    'username' => $uplineTwo->username,
+                                    'email' => $uplineTwo->email,
+                                    'phoneNumber' => $uplineTwo->phoneNumber,
+                                    'amount' => 500,
+                                    'transactionType' => 'Package Bonus',
+                                    'transactionService' => 'Royalty Bonus',
+                                    'status' => 'CONFIRM',
+                                    'paymentMethod' => 'commission',
+                                    "created_at" => date('Y-m-d H:i:s'),
+                                    "updated_at" => date('Y-m-d H:i:s'),
+                                ]);
+                                if (auth()->user()->uplineThree != 'Admin') {
+                                    DB::table('bonuses')->insert([
+                                        'bonusId' => $this->randomDigit(),
+                                        'sponsor' => auth()->user()->uplineThree,
+                                        'sponsorId' => auth()->user()->uplineThree,
+                                        'username' => auth()->user()->username,
+                                        'email' => auth()->user()->username,
+                                        'amount' => 500,
+                                        'package' => 'Package Bonus',
+                                        'status' => 'CONFRIM',
+                                        'dayCounter' => 0,
+                                        "created_at" => date('Y-m-d H:i:s'),
+                                        "updated_at" => date('Y-m-d H:i:s'),
+                                    ]);
+                                    DB::table('transactions')->insert([
+                                        'transactionId' => $this->randomDigit(),
+                                        'userId' => $uplineThree->userId,
+                                        'username' => $uplineThree->username,
+                                        'email' => $uplineThree->email,
+                                        'phoneNumber' => $uplineThree->phoneNumber,
+                                        'amount' => 500,
+                                        'transactionType' => 'Package Bonus',
+                                        'transactionService' => 'Royalty Bonus',
+                                        'status' => 'CONFIRM',
+                                        'paymentMethod' => 'commission',
+                                        "created_at" => date('Y-m-d H:i:s'),
+                                        "updated_at" => date('Y-m-d H:i:s'),
+                                    ]);
+                                    if (auth()->user()->uplineFour != 'Admin') {
+                                        DB::table('bonuses')->insert([
+                                            'bonusId' => $this->randomDigit(),
+                                            'sponsor' => auth()->user()->uplineFour,
+                                            'sponsorId' => auth()->user()->uplineFour,
+                                            'username' => auth()->user()->username,
+                                            'email' => auth()->user()->username,
+                                            'amount' => 500,
+                                            'package' => 'Package Bonus',
+                                            'status' => 'CONFRIM',
+                                            'dayCounter' => 0,
+                                            "created_at" => date('Y-m-d H:i:s'),
+                                            "updated_at" => date('Y-m-d H:i:s'),
+                                        ]);
+                                        DB::table('transactions')->insert([
+                                            'transactionId' => $this->randomDigit(),
+                                            'userId' => $uplineFour->userId,
+                                            'username' => $uplineFour->username,
+                                            'email' => $uplineFour->email,
+                                            'phoneNumber' => $uplineFour->phoneNumber,
+                                            'amount' => 500,
+                                            'transactionType' => 'Package Bonus',
+                                            'transactionService' => 'Royalty Bonus',
+                                            'status' => 'CONFIRM',
+                                            'paymentMethod' => 'commission',
+                                            "created_at" => date('Y-m-d H:i:s'),
+                                            "updated_at" => date('Y-m-d H:i:s'),
+                                        ]);
+                                        if (auth()->user()->uplineFive != 'Admin') {
+                                            DB::table('bonuses')->insert([
+                                                'bonusId' => $this->randomDigit(),
+                                                'sponsor' => auth()->user()->uplineFive,
+                                                'sponsorId' => auth()->user()->uplineFive,
+                                                'username' => auth()->user()->username,
+                                                'email' => auth()->user()->username,
+                                                'amount' => 500,
+                                                'package' => 'Package Bonus',
+                                                'status' => 'CONFRIM',
+                                                'dayCounter' => 0,
+                                                "created_at" => date('Y-m-d H:i:s'),
+                                                "updated_at" => date('Y-m-d H:i:s'),
+                                            ]);
+                                            DB::table('transactions')->insert([
+                                                'transactionId' => $this->randomDigit(),
+                                                'userId' => $uplineFive->userId,
+                                                'username' => $uplineFive->username,
+                                                'email' => $uplineFive->email,
+                                                'phoneNumber' => $uplineFive->phoneNumber,
+                                                'amount' => 500,
+                                                'transactionType' => 'Package Bonus',
+                                                'transactionService' => 'Royalty Bonus',
+                                                'status' => 'CONFIRM',
+                                                'paymentMethod' => 'commission',
+                                                "created_at" => date('Y-m-d H:i:s'),
+                                                "updated_at" => date('Y-m-d H:i:s'),
+                                            ]);
+                                            if (auth()->user()->uplineSix != 'Admin') {
+                                                DB::table('bonuses')->insert([
+                                                    'bonusId' => $this->randomDigit(),
+                                                    'sponsor' => auth()->user()->uplineSix,
+                                                    'sponsorId' => auth()->user()->uplineSix,
+                                                    'username' => auth()->user()->username,
+                                                    'email' => auth()->user()->username,
+                                                    'amount' => 500,
+                                                    'package' => 'Package Bonus',
+                                                    'status' => 'CONFRIM',
+                                                    'dayCounter' => 0,
+                                                    "created_at" => date('Y-m-d H:i:s'),
+                                                    "updated_at" => date('Y-m-d H:i:s'),
+                                                ]);
+                                                DB::table('transactions')->insert([
+                                                    'transactionId' => $this->randomDigit(),
+                                                    'userId' => $uplineSix->userId,
+                                                    'username' => $uplineSix->username,
+                                                    'email' => $uplineSix->email,
+                                                    'phoneNumber' => $uplineSix->phoneNumber,
+                                                    'amount' => 500,
+                                                    'transactionType' => 'Package Bonus',
+                                                    'transactionService' => 'Royalty Bonus',
+                                                    'status' => 'CONFIRM',
+                                                    'paymentMethod' => 'commission',
+                                                    "created_at" => date('Y-m-d H:i:s'),
+                                                    "updated_at" => date('Y-m-d H:i:s'),
+                                                ]);
+                                                if (auth()->user()->uplineSeven != 'Admin') {
+                                                    DB::table('bonuses')->insert([
+                                                        'bonusId' => $this->randomDigit(),
+                                                        'sponsor' => auth()->user()->uplineSeven,
+                                                        'sponsorId' => auth()->user()->uplineSeven,
+                                                        'username' => auth()->user()->username,
+                                                        'email' => auth()->user()->username,
+                                                        'amount' => 500,
+                                                        'package' => 'Package Bonus',
+                                                        'status' => 'CONFRIM',
+                                                        'dayCounter' => 0,
+                                                        "created_at" => date('Y-m-d H:i:s'),
+                                                        "updated_at" => date('Y-m-d H:i:s'),
+                                                    ]);
+                                                    DB::table('transactions')->insert([
+                                                        'transactionId' => $this->randomDigit(),
+                                                        'userId' => $uplineSeven->userId,
+                                                        'username' => $uplineSeven->username,
+                                                        'email' => $uplineSeven->email,
+                                                        'phoneNumber' => $uplineSeven->phoneNumber,
+                                                        'amount' => 500,
+                                                        'transactionType' => 'Package Bonus',
+                                                        'transactionService' => 'Royalty Bonus',
+                                                        'status' => 'CONFIRM',
+                                                        'paymentMethod' => 'commission',
+                                                        "created_at" => date('Y-m-d H:i:s'),
+                                                        "updated_at" => date('Y-m-d H:i:s'),
+                                                    ]);
+                                                    return back()->with(
+                                                        'toast_success',
+                                                        'Transaction Successful'
+                                                    );
+                                                } else {
+                                                    DB::table('bonuses')->insert([
+                                                        'bonusId' => $this->randomDigit(),
+                                                        'sponsor' => auth()->user()->uplineSeven,
+                                                        'sponsorId' => auth()->user()->uplineSeven,
+                                                        'username' => auth()->user()->username,
+                                                        'email' => auth()->user()->username,
+                                                        'amount' => 500,
+                                                        'package' => 'Package Bonus',
+                                                        'status' => 'CONFRIM',
+                                                        'dayCounter' => 0,
+                                                        "created_at" => date('Y-m-d H:i:s'),
+                                                        "updated_at" => date('Y-m-d H:i:s'),
+                                                    ]);
+                                                    return back()->with(
+                                                        'toast_success',
+                                                        'Transaction Successful'
+                                                    );
+                                                }
+                                            } else {
+                                                DB::table('bonuses')->insert([
+                                                    'bonusId' => $this->randomDigit(),
+                                                    'sponsor' => auth()->user()->uplineSix,
+                                                    'sponsorId' => auth()->user()->uplineSix,
+                                                    'username' => auth()->user()->username,
+                                                    'email' => auth()->user()->username,
+                                                    'amount' => 1000,
+                                                    'package' => 'Package Bonus',
+                                                    'status' => 'CONFRIM',
+                                                    'dayCounter' => 0,
+                                                    "created_at" => date('Y-m-d H:i:s'),
+                                                    "updated_at" => date('Y-m-d H:i:s'),
+                                                ]);
+                                                return back()->with(
+                                                    'toast_success',
+                                                    'Transaction Successful'
+                                                );
+                                            }
+                                        } else {
+                                            DB::table('bonuses')->insert([
+                                                'bonusId' => $this->randomDigit(),
+                                                'sponsor' => auth()->user()->uplineFive,
+                                                'sponsorId' => auth()->user()->uplineFive,
+                                                'username' => auth()->user()->username,
+                                                'email' => auth()->user()->username,
+                                                'amount' => 1500,
+                                                'package' => 'Package Bonus',
+                                                'status' => 'CONFRIM',
+                                                'dayCounter' => 0,
+                                                "created_at" => date('Y-m-d H:i:s'),
+                                                "updated_at" => date('Y-m-d H:i:s'),
+                                            ]);
+                                            return back()->with(
+                                                'toast_success',
+                                                'Transaction Successful'
+                                            );
+                                        }
+                                    } else {
+                                        DB::table('bonuses')->insert([
+                                            'bonusId' => $this->randomDigit(),
+                                            'sponsor' => auth()->user()->uplineFour,
+                                            'sponsorId' => auth()->user()->uplineFour,
+                                            'username' => auth()->user()->username,
+                                            'email' => auth()->user()->username,
+                                            'amount' => 2000,
+                                            'package' => 'Package Bonus',
+                                            'status' => 'CONFRIM',
+                                            'dayCounter' => 0,
+                                            "created_at" => date('Y-m-d H:i:s'),
+                                            "updated_at" => date('Y-m-d H:i:s'),
+                                        ]);
+                                        return back()->with(
+                                            'toast_success',
+                                            'Transaction Successful'
+                                        );
+                                    }
+                                } else {
+                                    DB::table('bonuses')->insert([
+                                        'bonusId' => $this->randomDigit(),
+                                        'sponsor' => auth()->user()->uplineThree,
+                                        'sponsorId' => auth()->user()->uplineThree,
+                                        'username' => auth()->user()->username,
+                                        'email' => auth()->user()->username,
+                                        'amount' => 2500,
+                                        'package' => 'Package Bonus',
+                                        'status' => 'CONFRIM',
+                                        'dayCounter' => 0,
+                                        "created_at" => date('Y-m-d H:i:s'),
+                                        "updated_at" => date('Y-m-d H:i:s'),
+                                    ]);
+                                    return back()->with('toast_success', 'Transaction Successful');
+                                }
+                            } else {
+                                DB::table('bonuses')->insert([
+                                    'bonusId' => $this->randomDigit(),
+                                    'sponsor' => auth()->user()->uplineTwo,
+                                    'sponsorId' => auth()->user()->uplineTwo,
+                                    'username' => auth()->user()->username,
+                                    'email' => auth()->user()->username,
+                                    'amount' => 3000,
+                                    'package' => 'Package Bonus',
+                                    'status' => 'CONFRIM',
+                                    'dayCounter' => 0,
+                                    "created_at" => date('Y-m-d H:i:s'),
+                                    "updated_at" => date('Y-m-d H:i:s'),
+                                ]);
+                                return back()->with('toast_success', 'Transaction Successful');
+                            }
+                        } else {
+                            DB::table('bonuses')->insert([
+                                'bonusId' => $this->randomDigit(),
+                                'sponsor' => auth()->user()->uplineOne,
+                                'sponsorId' => auth()->user()->uplineOne,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->username,
+                                'amount' => 4000,
+                                'package' => 'Package Bonus',
+                                'status' => 'CONFRIM',
+                                'dayCounter' => 0,
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                            DB::table('transactions')->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => auth()->user()->phoneNumber,
+                                'amount' => 1000,
+                                'transactionType' => 'Package Bonus',
+                                'transactionService' => 'Mentee Bonus',
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'commission',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                            return back()->with('toast_success', 'Transaction Successful');
+                        }
 
                         // Email
                         return back()->with('toast_success', 'Transaction Successful');
@@ -643,6 +1009,349 @@ class package extends Controller
                             ->where('userId', auth()->user()->userId)
                             ->update(['package' => $datapackage->packageName]);
 
+                        // Bonus Package
+
+                        // Uplines
+
+                        if ($uplineOne != null) {
+                            DB::table('bonuses')->insert([
+                                'bonusId' => $this->randomDigit(),
+                                'sponsor' => auth()->user()->uplineOne,
+                                'sponsorId' => auth()->user()->uplineOne,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->username,
+                                'amount' => 3000,
+                                'package' => 'Package Bonus',
+                                'status' => 'CONFRIM',
+                                'dayCounter' => 0,
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                            DB::table('transactions')->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => $uplineOne->userId,
+                                'username' => $uplineOne->username,
+                                'email' => $uplineOne->email,
+                                'phoneNumber' => $uplineOne->phoneNumber,
+                                'amount' => 3000,
+                                'transactionType' => 'Package Bonus',
+                                'transactionService' => 'Mentee Bonus',
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'commission',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                            if (auth()->user()->uplineTwo != 'Admin') {
+                                DB::table('bonuses')->insert([
+                                    'bonusId' => $this->randomDigit(),
+                                    'sponsor' => auth()->user()->uplineTwo,
+                                    'sponsorId' => auth()->user()->uplineTwo,
+                                    'username' => auth()->user()->username,
+                                    'email' => auth()->user()->username,
+                                    'amount' => 1500,
+                                    'package' => 'Package Bonus',
+                                    'status' => 'CONFRIM',
+                                    'dayCounter' => 0,
+                                    "created_at" => date('Y-m-d H:i:s'),
+                                    "updated_at" => date('Y-m-d H:i:s'),
+                                ]);
+                                DB::table('transactions')->insert([
+                                    'transactionId' => $this->randomDigit(),
+                                    'userId' => $uplineTwo->userId,
+                                    'username' => $uplineTwo->username,
+                                    'email' => $uplineTwo->email,
+                                    'phoneNumber' => $uplineTwo->phoneNumber,
+                                    'amount' => 1500,
+                                    'transactionType' => 'Package Bonus',
+                                    'transactionService' => 'Royalty Bonus',
+                                    'status' => 'CONFIRM',
+                                    'paymentMethod' => 'commission',
+                                    "created_at" => date('Y-m-d H:i:s'),
+                                    "updated_at" => date('Y-m-d H:i:s'),
+                                ]);
+                                if (auth()->user()->uplineThree != 'Admin') {
+                                    DB::table('bonuses')->insert([
+                                        'bonusId' => $this->randomDigit(),
+                                        'sponsor' => auth()->user()->uplineThree,
+                                        'sponsorId' => auth()->user()->uplineThree,
+                                        'username' => auth()->user()->username,
+                                        'email' => auth()->user()->username,
+                                        'amount' => 1500,
+                                        'package' => 'Package Bonus',
+                                        'status' => 'CONFRIM',
+                                        'dayCounter' => 0,
+                                        "created_at" => date('Y-m-d H:i:s'),
+                                        "updated_at" => date('Y-m-d H:i:s'),
+                                    ]);
+                                    DB::table('transactions')->insert([
+                                        'transactionId' => $this->randomDigit(),
+                                        'userId' => $uplineThree->userId,
+                                        'username' => $uplineThree->username,
+                                        'email' => $uplineThree->email,
+                                        'phoneNumber' => $uplineThree->phoneNumber,
+                                        'amount' => 1500,
+                                        'transactionType' => 'Package Bonus',
+                                        'transactionService' => 'Royalty Bonus',
+                                        'status' => 'CONFIRM',
+                                        'paymentMethod' => 'commission',
+                                        "created_at" => date('Y-m-d H:i:s'),
+                                        "updated_at" => date('Y-m-d H:i:s'),
+                                    ]);
+                                    if (auth()->user()->uplineFour != 'Admin') {
+                                        DB::table('bonuses')->insert([
+                                            'bonusId' => $this->randomDigit(),
+                                            'sponsor' => auth()->user()->uplineFour,
+                                            'sponsorId' => auth()->user()->uplineFour,
+                                            'username' => auth()->user()->username,
+                                            'email' => auth()->user()->username,
+                                            'amount' => 1500,
+                                            'package' => 'Package Bonus',
+                                            'status' => 'CONFRIM',
+                                            'dayCounter' => 0,
+                                            "created_at" => date('Y-m-d H:i:s'),
+                                            "updated_at" => date('Y-m-d H:i:s'),
+                                        ]);
+                                        DB::table('transactions')->insert([
+                                            'transactionId' => $this->randomDigit(),
+                                            'userId' => $uplineFour->userId,
+                                            'username' => $uplineFour->username,
+                                            'email' => $uplineFour->email,
+                                            'phoneNumber' => $uplineFour->phoneNumber,
+                                            'amount' => 1500,
+                                            'transactionType' => 'Package Bonus',
+                                            'transactionService' => 'Royalty Bonus',
+                                            'status' => 'CONFIRM',
+                                            'paymentMethod' => 'commission',
+                                            "created_at" => date('Y-m-d H:i:s'),
+                                            "updated_at" => date('Y-m-d H:i:s'),
+                                        ]);
+                                        if (auth()->user()->uplineFive != 'Admin') {
+                                            DB::table('bonuses')->insert([
+                                                'bonusId' => $this->randomDigit(),
+                                                'sponsor' => auth()->user()->uplineFive,
+                                                'sponsorId' => auth()->user()->uplineFive,
+                                                'username' => auth()->user()->username,
+                                                'email' => auth()->user()->username,
+                                                'amount' => 1500,
+                                                'package' => 'Package Bonus',
+                                                'status' => 'CONFRIM',
+                                                'dayCounter' => 0,
+                                                "created_at" => date('Y-m-d H:i:s'),
+                                                "updated_at" => date('Y-m-d H:i:s'),
+                                            ]);
+                                            DB::table('transactions')->insert([
+                                                'transactionId' => $this->randomDigit(),
+                                                'userId' => $uplineFive->userId,
+                                                'username' => $uplineFive->username,
+                                                'email' => $uplineFive->email,
+                                                'phoneNumber' => $uplineFive->phoneNumber,
+                                                'amount' => 1500,
+                                                'transactionType' => 'Package Bonus',
+                                                'transactionService' => 'Royalty Bonus',
+                                                'status' => 'CONFIRM',
+                                                'paymentMethod' => 'commission',
+                                                "created_at" => date('Y-m-d H:i:s'),
+                                                "updated_at" => date('Y-m-d H:i:s'),
+                                            ]);
+                                            if (auth()->user()->uplineSix != 'Admin') {
+                                                DB::table('bonuses')->insert([
+                                                    'bonusId' => $this->randomDigit(),
+                                                    'sponsor' => auth()->user()->uplineSix,
+                                                    'sponsorId' => auth()->user()->uplineSix,
+                                                    'username' => auth()->user()->username,
+                                                    'email' => auth()->user()->username,
+                                                    'amount' => 1500,
+                                                    'package' => 'Package Bonus',
+                                                    'status' => 'CONFRIM',
+                                                    'dayCounter' => 0,
+                                                    "created_at" => date('Y-m-d H:i:s'),
+                                                    "updated_at" => date('Y-m-d H:i:s'),
+                                                ]);
+                                                DB::table('transactions')->insert([
+                                                    'transactionId' => $this->randomDigit(),
+                                                    'userId' => $uplineSix->userId,
+                                                    'username' => $uplineSix->username,
+                                                    'email' => $uplineSix->email,
+                                                    'phoneNumber' => $uplineSix->phoneNumber,
+                                                    'amount' => 1500,
+                                                    'transactionType' => 'Package Bonus',
+                                                    'transactionService' => 'Royalty Bonus',
+                                                    'status' => 'CONFIRM',
+                                                    'paymentMethod' => 'commission',
+                                                    "created_at" => date('Y-m-d H:i:s'),
+                                                    "updated_at" => date('Y-m-d H:i:s'),
+                                                ]);
+                                                if (auth()->user()->uplineSeven != 'Admin') {
+                                                    DB::table('bonuses')->insert([
+                                                        'bonusId' => $this->randomDigit(),
+                                                        'sponsor' => auth()->user()->uplineSeven,
+                                                        'sponsorId' => auth()->user()->uplineSeven,
+                                                        'username' => auth()->user()->username,
+                                                        'email' => auth()->user()->username,
+                                                        'amount' => 1500,
+                                                        'package' => 'Package Bonus',
+                                                        'status' => 'CONFRIM',
+                                                        'dayCounter' => 0,
+                                                        "created_at" => date('Y-m-d H:i:s'),
+                                                        "updated_at" => date('Y-m-d H:i:s'),
+                                                    ]);
+                                                    DB::table('transactions')->insert([
+                                                        'transactionId' => $this->randomDigit(),
+                                                        'userId' => $uplineSeven->userId,
+                                                        'username' => $uplineSeven->username,
+                                                        'email' => $uplineSeven->email,
+                                                        'phoneNumber' => $uplineSeven->phoneNumber,
+                                                        'amount' => 1500,
+                                                        'transactionType' => 'Package Bonus',
+                                                        'transactionService' => 'Royalty Bonus',
+                                                        'status' => 'CONFIRM',
+                                                        'paymentMethod' => 'commission',
+                                                        "created_at" => date('Y-m-d H:i:s'),
+                                                        "updated_at" => date('Y-m-d H:i:s'),
+                                                    ]);
+                                                    return back()->with(
+                                                        'toast_success',
+                                                        'Transaction Successful'
+                                                    );
+                                                } else {
+                                                    DB::table('bonuses')->insert([
+                                                        'bonusId' => $this->randomDigit(),
+                                                        'sponsor' => auth()->user()->uplineSeven,
+                                                        'sponsorId' => auth()->user()->uplineSeven,
+                                                        'username' => auth()->user()->username,
+                                                        'email' => auth()->user()->username,
+                                                        'amount' => 1500,
+                                                        'package' => 'Package Bonus',
+                                                        'status' => 'CONFRIM',
+                                                        'dayCounter' => 0,
+                                                        "created_at" => date('Y-m-d H:i:s'),
+                                                        "updated_at" => date('Y-m-d H:i:s'),
+                                                    ]);
+                                                    return back()->with(
+                                                        'toast_success',
+                                                        'Transaction Successful'
+                                                    );
+                                                }
+                                            } else {
+                                                DB::table('bonuses')->insert([
+                                                    'bonusId' => $this->randomDigit(),
+                                                    'sponsor' => auth()->user()->uplineSix,
+                                                    'sponsorId' => auth()->user()->uplineSix,
+                                                    'username' => auth()->user()->username,
+                                                    'email' => auth()->user()->username,
+                                                    'amount' => 3000,
+                                                    'package' => 'Package Bonus',
+                                                    'status' => 'CONFRIM',
+                                                    'dayCounter' => 0,
+                                                    "created_at" => date('Y-m-d H:i:s'),
+                                                    "updated_at" => date('Y-m-d H:i:s'),
+                                                ]);
+                                                return back()->with(
+                                                    'toast_success',
+                                                    'Transaction Successful'
+                                                );
+                                            }
+                                        } else {
+                                            DB::table('bonuses')->insert([
+                                                'bonusId' => $this->randomDigit(),
+                                                'sponsor' => auth()->user()->uplineFive,
+                                                'sponsorId' => auth()->user()->uplineFive,
+                                                'username' => auth()->user()->username,
+                                                'email' => auth()->user()->username,
+                                                'amount' => 4500,
+                                                'package' => 'Package Bonus',
+                                                'status' => 'CONFRIM',
+                                                'dayCounter' => 0,
+                                                "created_at" => date('Y-m-d H:i:s'),
+                                                "updated_at" => date('Y-m-d H:i:s'),
+                                            ]);
+                                            return back()->with(
+                                                'toast_success',
+                                                'Transaction Successful'
+                                            );
+                                        }
+                                    } else {
+                                        DB::table('bonuses')->insert([
+                                            'bonusId' => $this->randomDigit(),
+                                            'sponsor' => auth()->user()->uplineFour,
+                                            'sponsorId' => auth()->user()->uplineFour,
+                                            'username' => auth()->user()->username,
+                                            'email' => auth()->user()->username,
+                                            'amount' => 5000,
+                                            'package' => 'Package Bonus',
+                                            'status' => 'CONFRIM',
+                                            'dayCounter' => 0,
+                                            "created_at" => date('Y-m-d H:i:s'),
+                                            "updated_at" => date('Y-m-d H:i:s'),
+                                        ]);
+                                        return back()->with(
+                                            'toast_success',
+                                            'Transaction Successful'
+                                        );
+                                    }
+                                } else {
+                                    DB::table('bonuses')->insert([
+                                        'bonusId' => $this->randomDigit(),
+                                        'sponsor' => auth()->user()->uplineThree,
+                                        'sponsorId' => auth()->user()->uplineThree,
+                                        'username' => auth()->user()->username,
+                                        'email' => auth()->user()->username,
+                                        'amount' => 7500,
+                                        'package' => 'Package Bonus',
+                                        'status' => 'CONFRIM',
+                                        'dayCounter' => 0,
+                                        "created_at" => date('Y-m-d H:i:s'),
+                                        "updated_at" => date('Y-m-d H:i:s'),
+                                    ]);
+                                    return back()->with('toast_success', 'Transaction Successful');
+                                }
+                            } else {
+                                DB::table('bonuses')->insert([
+                                    'bonusId' => $this->randomDigit(),
+                                    'sponsor' => auth()->user()->uplineTwo,
+                                    'sponsorId' => auth()->user()->uplineTwo,
+                                    'username' => auth()->user()->username,
+                                    'email' => auth()->user()->username,
+                                    'amount' => 9000,
+                                    'package' => 'Package Bonus',
+                                    'status' => 'CONFRIM',
+                                    'dayCounter' => 0,
+                                    "created_at" => date('Y-m-d H:i:s'),
+                                    "updated_at" => date('Y-m-d H:i:s'),
+                                ]);
+                                return back()->with('toast_success', 'Transaction Successful');
+                            }
+                        } else {
+                            DB::table('bonuses')->insert([
+                                'bonusId' => $this->randomDigit(),
+                                'sponsor' => auth()->user()->uplineOne,
+                                'sponsorId' => auth()->user()->uplineOne,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->username,
+                                'amount' => 12000,
+                                'package' => 'Package Bonus',
+                                'status' => 'CONFRIM',
+                                'dayCounter' => 0,
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                            DB::table('transactions')->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => auth()->user()->phoneNumber,
+                                'amount' => 3000,
+                                'transactionType' => 'Package Bonus',
+                                'transactionService' => 'Mentor Bonus',
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'commission',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                            return back()->with('toast_success', 'Transaction Successful');
+                        }
+
                         // Email
                         return back()->with('toast_success', 'Transaction Successful');
                     } elseif ($request->package == 'Gold') {
@@ -664,9 +1373,9 @@ class package extends Controller
                             ->where('userId', auth()->user()->userId)
                             ->where('sponsor', 'Admin')
                             ->first();
-                        $bronzepoint = 0.25;
+                        $point = 0.25;
                         $oldpoint = $data->point;
-                        $newpoint = $oldpoint + $bronzepoint;
+                        $newpoint = $oldpoint + $point;
 
                         DB::table('users')
                             ->where('userId', auth()->user()->userId)
@@ -674,7 +1383,348 @@ class package extends Controller
                         DB::table('users')
                             ->where('userId', auth()->user()->userId)
                             ->update(['package' => $datapackage->packageName]);
+                        // Bonus Package
 
+                        // Uplines
+
+                        if ($uplineOne != null) {
+                            DB::table('bonuses')->insert([
+                                'bonusId' => $this->randomDigit(),
+                                'sponsor' => auth()->user()->uplineOne,
+                                'sponsorId' => auth()->user()->uplineOne,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->username,
+                                'amount' => 6000,
+                                'package' => 'Package Bonus',
+                                'status' => 'CONFRIM',
+                                'dayCounter' => 0,
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                            DB::table('transactions')->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => $uplineOne->userId,
+                                'username' => $uplineOne->username,
+                                'email' => $uplineOne->email,
+                                'phoneNumber' => $uplineOne->phoneNumber,
+                                'amount' => 6000,
+                                'transactionType' => 'Package Bonus',
+                                'transactionService' => 'Mentor Bonus',
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'commission',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                            if (auth()->user()->uplineTwo != 'Admin') {
+                                DB::table('bonuses')->insert([
+                                    'bonusId' => $this->randomDigit(),
+                                    'sponsor' => auth()->user()->uplineTwo,
+                                    'sponsorId' => auth()->user()->uplineTwo,
+                                    'username' => auth()->user()->username,
+                                    'email' => auth()->user()->username,
+                                    'amount' => 1500,
+                                    'package' => 'Package Bonus',
+                                    'status' => 'CONFRIM',
+                                    'dayCounter' => 0,
+                                    "created_at" => date('Y-m-d H:i:s'),
+                                    "updated_at" => date('Y-m-d H:i:s'),
+                                ]);
+                                DB::table('transactions')->insert([
+                                    'transactionId' => $this->randomDigit(),
+                                    'userId' => $uplineTwo->userId,
+                                    'username' => $uplineTwo->username,
+                                    'email' => $uplineTwo->email,
+                                    'phoneNumber' => $uplineTwo->phoneNumber,
+                                    'amount' => 1500,
+                                    'transactionType' => 'Package Bonus',
+                                    'transactionService' => 'Royalty Bonus',
+                                    'status' => 'CONFIRM',
+                                    'paymentMethod' => 'commission',
+                                    "created_at" => date('Y-m-d H:i:s'),
+                                    "updated_at" => date('Y-m-d H:i:s'),
+                                ]);
+                                if (auth()->user()->uplineThree != 'Admin') {
+                                    DB::table('bonuses')->insert([
+                                        'bonusId' => $this->randomDigit(),
+                                        'sponsor' => auth()->user()->uplineThree,
+                                        'sponsorId' => auth()->user()->uplineThree,
+                                        'username' => auth()->user()->username,
+                                        'email' => auth()->user()->username,
+                                        'amount' => 1500,
+                                        'package' => 'Package Bonus',
+                                        'status' => 'CONFRIM',
+                                        'dayCounter' => 0,
+                                        "created_at" => date('Y-m-d H:i:s'),
+                                        "updated_at" => date('Y-m-d H:i:s'),
+                                    ]);
+                                    DB::table('transactions')->insert([
+                                        'transactionId' => $this->randomDigit(),
+                                        'userId' => $uplineThree->userId,
+                                        'username' => $uplineThree->username,
+                                        'email' => $uplineThree->email,
+                                        'phoneNumber' => $uplineThree->phoneNumber,
+                                        'amount' => 1500,
+                                        'transactionType' => 'Package Bonus',
+                                        'transactionService' => 'Royalty Bonus',
+                                        'status' => 'CONFIRM',
+                                        'paymentMethod' => 'commission',
+                                        "created_at" => date('Y-m-d H:i:s'),
+                                        "updated_at" => date('Y-m-d H:i:s'),
+                                    ]);
+                                    if (auth()->user()->uplineFour != 'Admin') {
+                                        DB::table('bonuses')->insert([
+                                            'bonusId' => $this->randomDigit(),
+                                            'sponsor' => auth()->user()->uplineFour,
+                                            'sponsorId' => auth()->user()->uplineFour,
+                                            'username' => auth()->user()->username,
+                                            'email' => auth()->user()->username,
+                                            'amount' => 1500,
+                                            'package' => 'Package Bonus',
+                                            'status' => 'CONFRIM',
+                                            'dayCounter' => 0,
+                                            "created_at" => date('Y-m-d H:i:s'),
+                                            "updated_at" => date('Y-m-d H:i:s'),
+                                        ]);
+                                        DB::table('transactions')->insert([
+                                            'transactionId' => $this->randomDigit(),
+                                            'userId' => $uplineFour->userId,
+                                            'username' => $uplineFour->username,
+                                            'email' => $uplineFour->email,
+                                            'phoneNumber' => $uplineFour->phoneNumber,
+                                            'amount' => 1500,
+                                            'transactionType' => 'Package Bonus',
+                                            'transactionService' => 'Royalty Bonus',
+                                            'status' => 'CONFIRM',
+                                            'paymentMethod' => 'commission',
+                                            "created_at" => date('Y-m-d H:i:s'),
+                                            "updated_at" => date('Y-m-d H:i:s'),
+                                        ]);
+                                        if (auth()->user()->uplineFive != 'Admin') {
+                                            DB::table('bonuses')->insert([
+                                                'bonusId' => $this->randomDigit(),
+                                                'sponsor' => auth()->user()->uplineFive,
+                                                'sponsorId' => auth()->user()->uplineFive,
+                                                'username' => auth()->user()->username,
+                                                'email' => auth()->user()->username,
+                                                'amount' => 1500,
+                                                'package' => 'Package Bonus',
+                                                'status' => 'CONFRIM',
+                                                'dayCounter' => 0,
+                                                "created_at" => date('Y-m-d H:i:s'),
+                                                "updated_at" => date('Y-m-d H:i:s'),
+                                            ]);
+                                            DB::table('transactions')->insert([
+                                                'transactionId' => $this->randomDigit(),
+                                                'userId' => $uplineFive->userId,
+                                                'username' => $uplineFive->username,
+                                                'email' => $uplineFive->email,
+                                                'phoneNumber' => $uplineFive->phoneNumber,
+                                                'amount' => 1500,
+                                                'transactionType' => 'Package Bonus',
+                                                'transactionService' => 'Royalty Bonus',
+                                                'status' => 'CONFIRM',
+                                                'paymentMethod' => 'commission',
+                                                "created_at" => date('Y-m-d H:i:s'),
+                                                "updated_at" => date('Y-m-d H:i:s'),
+                                            ]);
+                                            if (auth()->user()->uplineSix != 'Admin') {
+                                                DB::table('bonuses')->insert([
+                                                    'bonusId' => $this->randomDigit(),
+                                                    'sponsor' => auth()->user()->uplineSix,
+                                                    'sponsorId' => auth()->user()->uplineSix,
+                                                    'username' => auth()->user()->username,
+                                                    'email' => auth()->user()->username,
+                                                    'amount' => 1500,
+                                                    'package' => 'Package Bonus',
+                                                    'status' => 'CONFRIM',
+                                                    'dayCounter' => 0,
+                                                    "created_at" => date('Y-m-d H:i:s'),
+                                                    "updated_at" => date('Y-m-d H:i:s'),
+                                                ]);
+                                                DB::table('transactions')->insert([
+                                                    'transactionId' => $this->randomDigit(),
+                                                    'userId' => $uplineSix->userId,
+                                                    'username' => $uplineSix->username,
+                                                    'email' => $uplineSix->email,
+                                                    'phoneNumber' => $uplineSix->phoneNumber,
+                                                    'amount' => 1500,
+                                                    'transactionType' => 'Package Bonus',
+                                                    'transactionService' => 'Royalty Bonus',
+                                                    'status' => 'CONFIRM',
+                                                    'paymentMethod' => 'commission',
+                                                    "created_at" => date('Y-m-d H:i:s'),
+                                                    "updated_at" => date('Y-m-d H:i:s'),
+                                                ]);
+                                                if (auth()->user()->uplineSeven != 'Admin') {
+                                                    DB::table('bonuses')->insert([
+                                                        'bonusId' => $this->randomDigit(),
+                                                        'sponsor' => auth()->user()->uplineSeven,
+                                                        'sponsorId' => auth()->user()->uplineSeven,
+                                                        'username' => auth()->user()->username,
+                                                        'email' => auth()->user()->username,
+                                                        'amount' => 1500,
+                                                        'package' => 'Package Bonus',
+                                                        'status' => 'CONFRIM',
+                                                        'dayCounter' => 0,
+                                                        "created_at" => date('Y-m-d H:i:s'),
+                                                        "updated_at" => date('Y-m-d H:i:s'),
+                                                    ]);
+                                                    DB::table('transactions')->insert([
+                                                        'transactionId' => $this->randomDigit(),
+                                                        'userId' => $uplineSeven->userId,
+                                                        'username' => $uplineSeven->username,
+                                                        'email' => $uplineSeven->email,
+                                                        'phoneNumber' => $uplineSeven->phoneNumber,
+                                                        'amount' => 1500,
+                                                        'transactionType' => 'Package Bonus',
+                                                        'transactionService' => 'Royalty Bonus',
+                                                        'status' => 'CONFIRM',
+                                                        'paymentMethod' => 'commission',
+                                                        "created_at" => date('Y-m-d H:i:s'),
+                                                        "updated_at" => date('Y-m-d H:i:s'),
+                                                    ]);
+                                                    return back()->with(
+                                                        'toast_success',
+                                                        'Transaction Successful'
+                                                    );
+                                                } else {
+                                                    DB::table('bonuses')->insert([
+                                                        'bonusId' => $this->randomDigit(),
+                                                        'sponsor' => auth()->user()->uplineSeven,
+                                                        'sponsorId' => auth()->user()->uplineSeven,
+                                                        'username' => auth()->user()->username,
+                                                        'email' => auth()->user()->username,
+                                                        'amount' => 1500,
+                                                        'package' => 'Package Bonus',
+                                                        'status' => 'CONFRIM',
+                                                        'dayCounter' => 0,
+                                                        "created_at" => date('Y-m-d H:i:s'),
+                                                        "updated_at" => date('Y-m-d H:i:s'),
+                                                    ]);
+                                                    return back()->with(
+                                                        'toast_success',
+                                                        'Transaction Successful'
+                                                    );
+                                                }
+                                            } else {
+                                                DB::table('bonuses')->insert([
+                                                    'bonusId' => $this->randomDigit(),
+                                                    'sponsor' => auth()->user()->uplineSix,
+                                                    'sponsorId' => auth()->user()->uplineSix,
+                                                    'username' => auth()->user()->username,
+                                                    'email' => auth()->user()->username,
+                                                    'amount' => 3000,
+                                                    'package' => 'Package Bonus',
+                                                    'status' => 'CONFRIM',
+                                                    'dayCounter' => 0,
+                                                    "created_at" => date('Y-m-d H:i:s'),
+                                                    "updated_at" => date('Y-m-d H:i:s'),
+                                                ]);
+                                                return back()->with(
+                                                    'toast_success',
+                                                    'Transaction Successful'
+                                                );
+                                            }
+                                        } else {
+                                            DB::table('bonuses')->insert([
+                                                'bonusId' => $this->randomDigit(),
+                                                'sponsor' => auth()->user()->uplineFive,
+                                                'sponsorId' => auth()->user()->uplineFive,
+                                                'username' => auth()->user()->username,
+                                                'email' => auth()->user()->username,
+                                                'amount' => 4500,
+                                                'package' => 'Package Bonus',
+                                                'status' => 'CONFRIM',
+                                                'dayCounter' => 0,
+                                                "created_at" => date('Y-m-d H:i:s'),
+                                                "updated_at" => date('Y-m-d H:i:s'),
+                                            ]);
+                                            return back()->with(
+                                                'toast_success',
+                                                'Transaction Successful'
+                                            );
+                                        }
+                                    } else {
+                                        DB::table('bonuses')->insert([
+                                            'bonusId' => $this->randomDigit(),
+                                            'sponsor' => auth()->user()->uplineFour,
+                                            'sponsorId' => auth()->user()->uplineFour,
+                                            'username' => auth()->user()->username,
+                                            'email' => auth()->user()->username,
+                                            'amount' => 5000,
+                                            'package' => 'Package Bonus',
+                                            'status' => 'CONFRIM',
+                                            'dayCounter' => 0,
+                                            "created_at" => date('Y-m-d H:i:s'),
+                                            "updated_at" => date('Y-m-d H:i:s'),
+                                        ]);
+                                        return back()->with(
+                                            'toast_success',
+                                            'Transaction Successful'
+                                        );
+                                    }
+                                } else {
+                                    DB::table('bonuses')->insert([
+                                        'bonusId' => $this->randomDigit(),
+                                        'sponsor' => auth()->user()->uplineThree,
+                                        'sponsorId' => auth()->user()->uplineThree,
+                                        'username' => auth()->user()->username,
+                                        'email' => auth()->user()->username,
+                                        'amount' => 7500,
+                                        'package' => 'Package Bonus',
+                                        'status' => 'CONFRIM',
+                                        'dayCounter' => 0,
+                                        "created_at" => date('Y-m-d H:i:s'),
+                                        "updated_at" => date('Y-m-d H:i:s'),
+                                    ]);
+                                    return back()->with('toast_success', 'Transaction Successful');
+                                }
+                            } else {
+                                DB::table('bonuses')->insert([
+                                    'bonusId' => $this->randomDigit(),
+                                    'sponsor' => auth()->user()->uplineTwo,
+                                    'sponsorId' => auth()->user()->uplineTwo,
+                                    'username' => auth()->user()->username,
+                                    'email' => auth()->user()->username,
+                                    'amount' => 9000,
+                                    'package' => 'Package Bonus',
+                                    'status' => 'CONFRIM',
+                                    'dayCounter' => 0,
+                                    "created_at" => date('Y-m-d H:i:s'),
+                                    "updated_at" => date('Y-m-d H:i:s'),
+                                ]);
+                                return back()->with('toast_success', 'Transaction Successful');
+                            }
+                        } else {
+                            DB::table('bonuses')->insert([
+                                'bonusId' => $this->randomDigit(),
+                                'sponsor' => auth()->user()->uplineOne,
+                                'sponsorId' => auth()->user()->uplineOne,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->username,
+                                'amount' => 24000,
+                                'package' => 'Package Bonus',
+                                'status' => 'CONFRIM',
+                                'dayCounter' => 0,
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                            DB::table('transactions')->insert([
+                                'transactionId' => $this->randomDigit(),
+                                'userId' => auth()->user()->userId,
+                                'username' => auth()->user()->username,
+                                'email' => auth()->user()->email,
+                                'phoneNumber' => auth()->user()->phoneNumber,
+                                'amount' => 6000,
+                                'transactionType' => 'Package Bonus',
+                                'transactionService' => 'Mentee Bonus',
+                                'status' => 'CONFIRM',
+                                'paymentMethod' => 'commission',
+                                "created_at" => date('Y-m-d H:i:s'),
+                                "updated_at" => date('Y-m-d H:i:s'),
+                            ]);
+                            return back()->with('toast_success', 'Transaction Successful');
+                        }
                         // Email
                         return back()->with('toast_success', 'Transaction Successful');
                     } elseif ($request->package == 'Platinum') {
