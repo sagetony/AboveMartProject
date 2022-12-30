@@ -13,6 +13,11 @@ use Unicodeveloper\Paystack\Facades\Paystack as FacadesPaystack;
 
 class PaymentController extends Controller
 {
+    public function randomDigit()
+    {
+        $pass = substr(str_shuffle("01234561089abcDEfadsasfdasdfasdsfa3425542FGHIJnostXYZ"), 0, 30);
+        return $pass;
+    }
     /**
      * Redirect the User to Paystack Payment Page
      * @return Url
@@ -43,27 +48,26 @@ class PaymentController extends Controller
                 'name' => auth()->user()->username,
                 'email' => $paymentDetails['data']['customer']['email'],
                 'amount' => $paymentDetails['data']['amount'] / 100,
-                'paymentType' => 'Wallet',
+                'paymentType' => 'wallet',
                 'status' => 'success',
                 "created_at" => date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
             ]);
 
-            DB::table('transactions')
-                ->where('userId', auth()->user()->userId)
-                ->insert([
-                    'transactionId' => $this->randomDigit(),
-                    'userId' => auth()->user->userId(),
-                    'username' => auth()->user->username,
-                    'email' => auth()->user->email,
-                    'phoneNumber' => auth()->user->phoneNumber,
-                    'amount' => $request->amount,
-                    'transactionType' => 'Deposit',
-                    'transactionService' => 'Funding Wallet',
-                    'status' => 'CONFIRM',
-                    "created_at" => date('Y-m-d H:i:s'),
-                    "updated_at" => date('Y-m-d H:i:s'),
-                ]);
+            DB::table('transactions')->insert([
+                'transactionId' => $paymentDetails['data']['reference'],
+                'userId' => auth()->user()->userId,
+                'username' => auth()->user()->username,
+                'email' => auth()->user()->email,
+                'phoneNumber' => auth()->user()->phoneNumber,
+                'amount' => $paymentDetails['data']['amount'] / 100,
+                'transactionType' => 'Deposit',
+                'transactionService' => 'Funding Wallet',
+                'status' => 'CONFIRM',
+                'paymentMethod' => 'wallet',
+                "created_at" => date('Y-m-d H:i:s'),
+                "updated_at" => date('Y-m-d H:i:s'),
+            ]);
             return back()->with('toast_success', 'Transaction Successful !!');
         } else {
             return back()->with('toast_error', 'Failed transaction');
