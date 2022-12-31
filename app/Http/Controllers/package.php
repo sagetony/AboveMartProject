@@ -104,22 +104,22 @@ class package extends Controller
                         // bonus
                         $bonus1000 = 1000;
                         $bonus500 = 500;
+
+                        // points for user
                         $data = DB::table('users')
                             ->where('userId', auth()->user()->userId)
                             ->where('sponsor', '!=', 'Admin')
                             ->first();
                         $sponsordata = $data->sponsor;
-                        $bronzepoint = 0.15;
+                        $point = 0.15;
                         $oldpoint = $data->point;
-                        $newpoint = $oldpoint + $bronzepoint;
+                        $newpoint = $oldpoint + $point;
 
                         DB::table('users')
                             ->where('userId', auth()->user()->userId)
                             ->update(['point' => $newpoint]);
-                        DB::table('users')
-                            ->where('userId', auth()->user()->userId)
-                            ->where('mySponsorId', $sponsordata)
-                            ->update(['point' => $newpoint]);
+
+                        // add bonuses
                         bonus::create([
                             'bonusId' => $this->randomDigit(),
                             'sponsor' => auth()->user()->mySponsorId,
@@ -208,8 +208,77 @@ class package extends Controller
                             'status' => 'Confirm',
                             'dayCounter' => 0,
                         ]);
+                        // points for uplines
+                        // upline One
+
+                        $uplineOneData = DB::table('users')
+                            ->where('uplineOne', '!=', 'Admin')
+                            ->where('mySponsorId', auth()->user()->uplineOne)
+                            ->first();
+                        if ($uplineOneData != null) {
+                            $uplineOnePoint = $uplineOneData->point + $point;
+                            DB::table('users')
+                                ->where('mySponsorId', auth()->user()->uplineOne)
+                                ->update(['point' => $uplineOnePoint]);
+                            // upline two
+                            $uplineTwoData = DB::table('users')
+                                ->where('mySponsorId', auth()->user()->uplineTwo)
+                                ->first();
+                            if ($uplineTwoData != null) {
+                                $uplineTwoPoint = $uplineTwoData->point + $point;
+                                DB::table('users')
+                                    ->where('mySponsorId', auth()->user()->uplineTwo)
+                                    ->update(['point' => $uplineTwoPoint]);
+                                // upline three
+                                $uplineThreeData = DB::table('users')
+                                    ->where('mySponsorId', auth()->user()->uplineThree)
+                                    ->first();
+                                if ($uplineThreeData != null) {
+                                    $uplineThreePoint = $uplineThreeData->point + $point;
+                                    DB::table('users')
+                                        ->where('mySponsorId', auth()->user()->uplineThree)
+                                        ->update(['point' => $uplineThreePoint]);
+                                    // upline four
+                                    $uplineFourData = DB::table('users')
+                                        ->where('mySponsorId', auth()->user()->uplineFour)
+                                        ->first();
+                                    if ($uplineFourData != null) {
+                                        $uplineFourPoint = $uplineFourData->point + $point;
+                                        DB::table('users')
+                                            ->where('mySponsorId', auth()->user()->uplineFour)
+                                            ->update(['point' => $uplineFourPoint]);
+                                        // upline Five
+                                        $uplineFiveData = DB::table('users')
+                                            ->where('mySponsorId', auth()->user()->uplineFive)
+                                            ->first();
+                                        if ($uplineFiveData != null) {
+                                            $uplineFivePoint = $uplineFiveData->point + $point;
+                                            DB::table('users')
+                                                ->where('mySponsorId', auth()->user()->uplineFive)
+                                                ->update(['point' => $uplineFivePoint]);
+                                        } else {
+                                            return back()->with(
+                                                'toast_success',
+                                                'Transaction Successful'
+                                            );
+                                        }
+                                    } else {
+                                        return back()->with(
+                                            'toast_success',
+                                            'Transaction Successful'
+                                        );
+                                    }
+                                } else {
+                                    return back()->with('toast_success', 'Transaction Successful');
+                                }
+                            } else {
+                                return back()->with('toast_success', 'Transaction Successful');
+                            }
+                        } else {
+                            return back()->with('toast_success', 'Transaction Successful');
+                        }
                         // email
-                        return back()->with('toast_success', 'Transaction Successful');
+                        // return back()->with('toast_success', 'Transaction Successful');
                     } elseif ($request->package == 'Silver') {
                         // return dd('sds');
                         $goldenbonus = 15000;
@@ -239,9 +308,9 @@ class package extends Controller
                             ->where('sponsor', '!=', 'Admin')
                             ->first();
                         $sponsordata = $data->sponsor;
-                        $bronzepoint = 0.2;
+                        $point = 0.2;
                         $oldpoint = $data->point;
-                        $newpoint = $oldpoint + $bronzepoint;
+                        $newpoint = $oldpoint + $point;
 
                         DB::table('users')
                             ->where('userId', auth()->user()->userId)
@@ -338,8 +407,74 @@ class package extends Controller
                             'status' => 'Confirm',
                             'dayCounter' => 0,
                         ]);
+                        $uplineOneData = DB::table('users')
+                            ->where('uplineOne', '!=', 'Admin')
+                            ->where('mySponsorId', auth()->user()->uplineOne)
+                            ->first();
+                        if ($uplineOneData != null) {
+                            $uplineOnePoint = $uplineOneData->point + $point;
+                            DB::table('users')
+                                ->where('mySponsorId', auth()->user()->uplineOne)
+                                ->update(['point' => $uplineOnePoint]);
+                            // upline two
+                            $uplineTwoData = DB::table('users')
+                                ->where('mySponsorId', auth()->user()->uplineTwo)
+                                ->first();
+                            if ($uplineTwoData != null) {
+                                $uplineTwoPoint = $uplineTwoData->point + $point;
+                                DB::table('users')
+                                    ->where('mySponsorId', auth()->user()->uplineTwo)
+                                    ->update(['point' => $uplineTwoPoint]);
+                                // upline three
+                                $uplineThreeData = DB::table('users')
+                                    ->where('mySponsorId', auth()->user()->uplineThree)
+                                    ->first();
+                                if ($uplineThreeData != null) {
+                                    $uplineThreePoint = $uplineThreeData->point + $point;
+                                    DB::table('users')
+                                        ->where('mySponsorId', auth()->user()->uplineThree)
+                                        ->update(['point' => $uplineThreePoint]);
+                                    // upline four
+                                    $uplineFourData = DB::table('users')
+                                        ->where('mySponsorId', auth()->user()->uplineFour)
+                                        ->first();
+                                    if ($uplineFourData != null) {
+                                        $uplineFourPoint = $uplineFourData->point + $point;
+                                        DB::table('users')
+                                            ->where('mySponsorId', auth()->user()->uplineFour)
+                                            ->update(['point' => $uplineFourPoint]);
+                                        // upline Five
+                                        $uplineFiveData = DB::table('users')
+                                            ->where('mySponsorId', auth()->user()->uplineFive)
+                                            ->first();
+                                        if ($uplineFiveData != null) {
+                                            $uplineFivePoint = $uplineFiveData->point + $point;
+                                            DB::table('users')
+                                                ->where('mySponsorId', auth()->user()->uplineFive)
+                                                ->update(['point' => $uplineFivePoint]);
+                                        } else {
+                                            return back()->with(
+                                                'toast_success',
+                                                'Transaction Successful'
+                                            );
+                                        }
+                                    } else {
+                                        return back()->with(
+                                            'toast_success',
+                                            'Transaction Successful'
+                                        );
+                                    }
+                                } else {
+                                    return back()->with('toast_success', 'Transaction Successful');
+                                }
+                            } else {
+                                return back()->with('toast_success', 'Transaction Successful');
+                            }
+                        } else {
+                            return back()->with('toast_success', 'Transaction Successful');
+                        }
                         // email
-                        return back()->with('toast_success', 'Transaction Successful');
+                        // return back()->with('toast_success', 'Transaction Successful');
                     } elseif ($request->package == 'Gold') {
                         $goldenbonus = 30000;
                         // update
@@ -368,9 +503,9 @@ class package extends Controller
                             ->where('sponsor', '!=', 'Admin')
                             ->first();
                         $sponsordata = $data->sponsor;
-                        $bronzepoint = 0.25;
+                        $point = 0.25;
                         $oldpoint = $data->point;
-                        $newpoint = $oldpoint + $bronzepoint;
+                        $newpoint = $oldpoint + $point;
 
                         DB::table('users')
                             ->where('userId', auth()->user()->userId)
@@ -467,8 +602,74 @@ class package extends Controller
                             'status' => 'Confirm',
                             'dayCounter' => 0,
                         ]);
+                        $uplineOneData = DB::table('users')
+                            ->where('uplineOne', '!=', 'Admin')
+                            ->where('mySponsorId', auth()->user()->uplineOne)
+                            ->first();
+                        if ($uplineOneData != null) {
+                            $uplineOnePoint = $uplineOneData->point + $point;
+                            DB::table('users')
+                                ->where('mySponsorId', auth()->user()->uplineOne)
+                                ->update(['point' => $uplineOnePoint]);
+                            // upline two
+                            $uplineTwoData = DB::table('users')
+                                ->where('mySponsorId', auth()->user()->uplineTwo)
+                                ->first();
+                            if ($uplineTwoData != null) {
+                                $uplineTwoPoint = $uplineTwoData->point + $point;
+                                DB::table('users')
+                                    ->where('mySponsorId', auth()->user()->uplineTwo)
+                                    ->update(['point' => $uplineTwoPoint]);
+                                // upline three
+                                $uplineThreeData = DB::table('users')
+                                    ->where('mySponsorId', auth()->user()->uplineThree)
+                                    ->first();
+                                if ($uplineThreeData != null) {
+                                    $uplineThreePoint = $uplineThreeData->point + $point;
+                                    DB::table('users')
+                                        ->where('mySponsorId', auth()->user()->uplineThree)
+                                        ->update(['point' => $uplineThreePoint]);
+                                    // upline four
+                                    $uplineFourData = DB::table('users')
+                                        ->where('mySponsorId', auth()->user()->uplineFour)
+                                        ->first();
+                                    if ($uplineFourData != null) {
+                                        $uplineFourPoint = $uplineFourData->point + $point;
+                                        DB::table('users')
+                                            ->where('mySponsorId', auth()->user()->uplineFour)
+                                            ->update(['point' => $uplineFourPoint]);
+                                        // upline Five
+                                        $uplineFiveData = DB::table('users')
+                                            ->where('mySponsorId', auth()->user()->uplineFive)
+                                            ->first();
+                                        if ($uplineFiveData != null) {
+                                            $uplineFivePoint = $uplineFiveData->point + $point;
+                                            DB::table('users')
+                                                ->where('mySponsorId', auth()->user()->uplineFive)
+                                                ->update(['point' => $uplineFivePoint]);
+                                        } else {
+                                            return back()->with(
+                                                'toast_success',
+                                                'Transaction Successful'
+                                            );
+                                        }
+                                    } else {
+                                        return back()->with(
+                                            'toast_success',
+                                            'Transaction Successful'
+                                        );
+                                    }
+                                } else {
+                                    return back()->with('toast_success', 'Transaction Successful');
+                                }
+                            } else {
+                                return back()->with('toast_success', 'Transaction Successful');
+                            }
+                        } else {
+                            return back()->with('toast_success', 'Transaction Successful');
+                        }
                         // email
-                        return back()->with('toast_success', 'Transaction Successful');
+                        // return back()->with('toast_success', 'Transaction Successful');
                     } elseif ($request->package == 'Platinum') {
                         $goldenbonus = 30000;
                         // update
@@ -497,9 +698,9 @@ class package extends Controller
                             ->where('sponsor', '!=', 'Admin')
                             ->first();
                         $sponsordata = $data->sponsor;
-                        $bronzepoint = 0.3;
+                        $point = 0.3;
                         $oldpoint = $data->point;
-                        $newpoint = $oldpoint + $bronzepoint;
+                        $newpoint = $oldpoint + $point;
 
                         DB::table('users')
                             ->where('userId', auth()->user()->userId)
@@ -596,8 +797,74 @@ class package extends Controller
                             'status' => 'Confirm',
                             'dayCounter' => 0,
                         ]);
+                        $uplineOneData = DB::table('users')
+                            ->where('uplineOne', '!=', 'Admin')
+                            ->where('mySponsorId', auth()->user()->uplineOne)
+                            ->first();
+                        if ($uplineOneData != null) {
+                            $uplineOnePoint = $uplineOneData->point + $point;
+                            DB::table('users')
+                                ->where('mySponsorId', auth()->user()->uplineOne)
+                                ->update(['point' => $uplineOnePoint]);
+                            // upline two
+                            $uplineTwoData = DB::table('users')
+                                ->where('mySponsorId', auth()->user()->uplineTwo)
+                                ->first();
+                            if ($uplineTwoData != null) {
+                                $uplineTwoPoint = $uplineTwoData->point + $point;
+                                DB::table('users')
+                                    ->where('mySponsorId', auth()->user()->uplineTwo)
+                                    ->update(['point' => $uplineTwoPoint]);
+                                // upline three
+                                $uplineThreeData = DB::table('users')
+                                    ->where('mySponsorId', auth()->user()->uplineThree)
+                                    ->first();
+                                if ($uplineThreeData != null) {
+                                    $uplineThreePoint = $uplineThreeData->point + $point;
+                                    DB::table('users')
+                                        ->where('mySponsorId', auth()->user()->uplineThree)
+                                        ->update(['point' => $uplineThreePoint]);
+                                    // upline four
+                                    $uplineFourData = DB::table('users')
+                                        ->where('mySponsorId', auth()->user()->uplineFour)
+                                        ->first();
+                                    if ($uplineFourData != null) {
+                                        $uplineFourPoint = $uplineFourData->point + $point;
+                                        DB::table('users')
+                                            ->where('mySponsorId', auth()->user()->uplineFour)
+                                            ->update(['point' => $uplineFourPoint]);
+                                        // upline Five
+                                        $uplineFiveData = DB::table('users')
+                                            ->where('mySponsorId', auth()->user()->uplineFive)
+                                            ->first();
+                                        if ($uplineFiveData != null) {
+                                            $uplineFivePoint = $uplineFiveData->point + $point;
+                                            DB::table('users')
+                                                ->where('mySponsorId', auth()->user()->uplineFive)
+                                                ->update(['point' => $uplineFivePoint]);
+                                        } else {
+                                            return back()->with(
+                                                'toast_success',
+                                                'Transaction Successful'
+                                            );
+                                        }
+                                    } else {
+                                        return back()->with(
+                                            'toast_success',
+                                            'Transaction Successful'
+                                        );
+                                    }
+                                } else {
+                                    return back()->with('toast_success', 'Transaction Successful');
+                                }
+                            } else {
+                                return back()->with('toast_success', 'Transaction Successful');
+                            }
+                        } else {
+                            return back()->with('toast_success', 'Transaction Successful');
+                        }
                         // email
-                        return back()->with('toast_success', 'Transaction Successful');
+                        // return back()->with('toast_success', 'Transaction Successful');
                     } else {
                         return back()->with('toast_error', 'Invalid Transaction');
                     }
