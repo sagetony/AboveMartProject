@@ -60,7 +60,7 @@ class Register extends Controller
                 'emailVerified' => 'NO',
                 'password' => Hash::make($request->password),
                 'photo' => 'assets/img/user/user-2.jpg',
-                'rank' => 'Leader',
+                'rank' => 'Member',
                 'package' => 'Basic',
                 'point' => 0,
                 'uplineOne' => 'Admin',
@@ -107,7 +107,7 @@ class Register extends Controller
                 'emailVerified' => 'NO',
                 'password' => Hash::make($request->password),
                 'photo' => 'assets/img/user/user-2.jpg',
-                'rank' => 'Leader',
+                'rank' => 'Member',
                 'package' => 'Basic',
                 'point' => 0,
                 'uplineOne' => 'Admin',
@@ -129,14 +129,17 @@ class Register extends Controller
             // $user->attachRole('user');
             // email......
 
-            // $dat = DB::table('users')->where('username', $request->username)->first();
-            // $details = [
-            //     'name' => $request->firstName . ' ' . $request->lastName,
-            //     'id' => $dat->userId,
+            $userData = DB::table('users')
+                ->where('username', $request->username)
+                ->first();
 
-            // ];
-            // Mail::to($request->email)->send(new emailVerify($details));
+            $details = [
+                'name' => $request->firstName . ' ' . $request->lastName,
+                'id' => $userData->userId,
+            ];
+            Mail::to($request->email)->send(new emailVerify($details));
             // return 'email sent';
+
             return back()->withToastSuccess('Please check your email and activate your account');
         }
     }

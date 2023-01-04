@@ -22,7 +22,7 @@
 <div class="stats-icon stats-icon-lg"><i class="fa fa-globe fa-fw"></i></div>
 <div class="stats-content">
 <div class="stats-title">MY BALANCE</div>
-<div class="stats-number">#{{ $bonusamount +  $walletamount - $withdrawamount }}</div>
+<div class="stats-number">{{ $capital + $bonus - $expenses}}</div>
 <div class="stats-progress progress">
 <div class="progress-bar" style="width: 70.1%;"></div>
 </div>

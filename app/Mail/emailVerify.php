@@ -30,6 +30,6 @@ class emailVerify extends Mailable
      */
     public function build()
     {
-        return $this->subject("Email Activation")->view('view.emailverify');
+        return $this->subject("Email Activation")->view('email.emailverify');
     }
 }

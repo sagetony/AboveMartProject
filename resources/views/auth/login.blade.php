@@ -38,7 +38,7 @@
 <div class="login-header">
 <div class="brand">
 <div class="d-flex align-items-center">
-<span class="logo"></span> <b>Above</b> VTU
+<span class="logo"></span> <b>Above</b> Marts
 </div>
 <small>Get Started With AboveMarts Platform</small>
 </div>

@@ -19,7 +19,7 @@
                   <nav class="navbar navbar-expand-lg navbar-light p-0">
                     <div class="navbar-header navbar-header-custom">
                       <!-- start logo -->
-                      <a href="index.html" class="navbar-brand logochange"
+                      <a href="/" class="navbar-brand logochange"
                         ><img
                           id="logo"
                           src="img/logos/logo-inner.png"
