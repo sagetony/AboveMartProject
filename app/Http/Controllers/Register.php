@@ -79,16 +79,16 @@ class Register extends Controller
                 'downlineSeven' => 'Admin',
             ]);
 
-            // $user->attachRole('user');
             // email......
-            // $dat = DB::table('users')->where('username', $request->username)->first();
+            $userData = DB::table('users')
+                ->where('username', $request->username)
+                ->first();
 
-            // $details = [
-            //     'name' => $request->firstName . ' ' . $request->lastName,
-            //     'id' => $dat->userId,
-
-            // ];
-            // Mail::to($request->email)->send(new emailVerify($details));
+            $details = [
+                'name' => $request->firstName . ' ' . $request->lastName,
+                'id' => $userData->userId,
+            ];
+            Mail::to($request->email)->send(new emailVerify($details));
             // return 'email sent';
 
             return back()->withToastSuccess('Please check your email and activate your account');

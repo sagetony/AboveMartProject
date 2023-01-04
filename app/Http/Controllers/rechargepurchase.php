@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\recharge;
 
 class rechargepurchase extends Controller
 {
@@ -37,7 +39,7 @@ class rechargepurchase extends Controller
         if ($balance < $request->amount) {
             return back()->with('toast_error', 'Insufficient Funds');
         } else {
-            $api = 'yeuhplp7chfn1oaw0qjkqngnurclh8md';
+            $api = getenv('TELECOM_API');
             $phoneNumber = $request->phoneNumber;
             $productCode = $request->package;
             $amount = $request->amount;
@@ -54,7 +56,6 @@ class rechargepurchase extends Controller
             $response = curl_exec($ch);
             $response = json_decode($response);
 
-            // echo $response;
             if ($response->status == true) {
                 DB::table('rcpurchases')
                     ->where('userId', auth()->user()->userId)
@@ -85,6 +86,18 @@ class rechargepurchase extends Controller
                         "created_at" => date('Y-m-d H:i:s'),
                         "updated_at" => date('Y-m-d H:i:s'),
                     ]);
+                    // email......
+                    $userData = DB::table('users')
+                        ->where('userId', auth()->user()->username)
+                        ->first();
+
+                    $details = [
+                        'name' => auth()->user()->firstName . ' ' . auth()->user()->lastName,
+                        'amount' => $request->amount,
+                        'network' => $request->package,
+                        'date' => date('Y-m-d H:i:s'),
+                    ];
+                    Mail::to(auth()->user()->email)->send(new recharge($details));
                     return back()->with('toast_success', 'Transaction Successful !!');
                 } elseif ($request->payment == 'epin') {
                     DB::table('transactions')->insert([
@@ -101,6 +114,18 @@ class rechargepurchase extends Controller
                         "created_at" => date('Y-m-d H:i:s'),
                         "updated_at" => date('Y-m-d H:i:s'),
                     ]);
+                    // email......
+                    $userData = DB::table('users')
+                        ->where('userId', auth()->user()->username)
+                        ->first();
+
+                    $details = [
+                        'name' => auth()->user()->firstName . ' ' . auth()->user()->lastName,
+                        'amount' => $request->amount,
+                        'network' => $request->package,
+                        'date' => date('Y-m-d H:i:s'),
+                    ];
+                    Mail::to(auth()->user()->email)->send(new recharge($details));
                     return back()->with('toast_success', 'Transaction Successful !!');
                 } elseif ($request->payment == 'promo') {
                     DB::table('transactions')->insert([
@@ -117,6 +142,18 @@ class rechargepurchase extends Controller
                         "created_at" => date('Y-m-d H:i:s'),
                         "updated_at" => date('Y-m-d H:i:s'),
                     ]);
+                    // email......
+                    $userData = DB::table('users')
+                        ->where('userId', auth()->user()->username)
+                        ->first();
+
+                    $details = [
+                        'name' => auth()->user()->firstName . ' ' . auth()->user()->lastName,
+                        'amount' => $request->amount,
+                        'network' => $request->package,
+                        'date' => date('Y-m-d H:i:s'),
+                    ];
+                    Mail::to(auth()->user()->email)->send(new recharge($details));
                     return back()->with('toast_success', 'Transaction Successful !!');
                 } else {
                     return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');

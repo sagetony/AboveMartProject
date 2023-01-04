@@ -39,7 +39,7 @@ class datapurchase extends Controller
             return back()->with('toast_error', 'Insufficient Funds');
         } else {
             if ($request->network == 'mtn') {
-                $api = 'yeuhplp7chfn1oaw0qjkqngnurclh8md';
+                $api = getenv('TELECOM_API');
                 $phoneNumber = $request->phoneNumber;
                 $productCode = $request->packageMTN;
                 $amount = $request->amount;
@@ -53,7 +53,7 @@ class datapurchase extends Controller
                 curl_setopt($ch, CURLOPT_POST, true);
                 curl_setopt($ch, CURLOPT_POST, true);
                 $result = curl_exec($ch);
-                $result = json_decode($result);
+                $response = json_decode($result);
 
                 if ($response->status == true) {
                     DB::table('datapurchases')
@@ -126,7 +126,7 @@ class datapurchase extends Controller
                     return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');
                 }
             } elseif ($request->network == 'glo') {
-                $api = 'yeuhplp7chfn1oaw0qjkqngnurclh8md';
+                $api = getenv('TELECOM_API');
                 $phoneNumber = $request->phoneNumber;
                 $productCode = $request->packageGLO;
                 $amount = $request->amount;
@@ -218,7 +218,7 @@ class datapurchase extends Controller
                     return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');
                 }
             } elseif ($request->network == 'airtel') {
-                $api = 'yeuhplp7chfn1oaw0qjkqngnurclh8md';
+                $api = getenv('TELECOM_API');
                 $phoneNumber = $request->phoneNumber;
                 $productCode = $request->packageAirtel;
                 $amount = $request->amount;
@@ -310,7 +310,7 @@ class datapurchase extends Controller
                     return back()->with('toast_error', 'Oops!!, Kindly reach out to admin');
                 }
             } elseif ($request->network == '9mobile') {
-                $api = 'yeuhplp7chfn1oaw0qjkqngnurclh8md';
+                $api = getenv('TELECOM_API');
                 $phoneNumber = $request->phoneNumber;
                 $productCode = $request->package9MOBILE;
                 $amount = $request->amount;

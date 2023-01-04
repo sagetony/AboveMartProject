@@ -7,11 +7,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class emailVerify extends Mailable
+class datapurchase extends Mailable
 {
     use Queueable, SerializesModels;
     public $details;
-
+    
     /**
      * Create a new message instance.
      *
@@ -20,7 +20,7 @@ class emailVerify extends Mailable
     public function __construct($details)
     {
         //
-        $this->details = $details;
+        $this->$details;
     }
 
     /**
@@ -30,6 +30,6 @@ class emailVerify extends Mailable
      */
     public function build()
     {
-        return $this->subject("Email Activation")->view('view.emailverify');
+        return $this->view('view.name');
     }
 }

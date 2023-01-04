@@ -72,7 +72,7 @@
 <div class="row mb-15px">
     <label class="form-label col-form-label col-md-2">Select Method Payment</label>
     <div class="col-md-6">
-        <select class="form-select" name="package" id="payment" onChange="updatepaymentMethod()">
+        <select class="form-select" name="payment" id="payment" onChange="updatepaymentMethod()">
             <option value="wallet">Main Wallet</option>
             <option value="epin">E-Pin</option>
             <option value="promo">Promo Wallet</option>

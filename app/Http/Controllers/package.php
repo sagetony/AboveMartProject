@@ -111,7 +111,7 @@ class package extends Controller
                             ->where('sponsor', '!=', 'Admin')
                             ->first();
                         $sponsordata = $data->sponsor;
-                        $point = 0.15;
+                        $point = 0.05;
                         $oldpoint = $data->point;
                         $newpoint = $oldpoint + $point;
 
@@ -308,7 +308,7 @@ class package extends Controller
                             ->where('sponsor', '!=', 'Admin')
                             ->first();
                         $sponsordata = $data->sponsor;
-                        $point = 0.2;
+                        $point = 0.125;
                         $oldpoint = $data->point;
                         $newpoint = $oldpoint + $point;
 
@@ -698,7 +698,7 @@ class package extends Controller
                             ->where('sponsor', '!=', 'Admin')
                             ->first();
                         $sponsordata = $data->sponsor;
-                        $point = 0.3;
+                        $point = 0.5;
                         $oldpoint = $data->point;
                         $newpoint = $oldpoint + $point;
 

@@ -40,7 +40,7 @@ class lightController extends Controller
             if ($request->package == 'none') {
                 return back()->with('toast_error', 'Select an electricity services');
             } else {
-                $api = 'yeuhplp7chfn1oaw0qjkqngnurclh8md';
+                $api = getenv('TELECOM_API');
                 $productCode = $request->package;
                 $amount = $request->amount;
                 $meterNumber = $request->meterNumber;

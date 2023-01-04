@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class emailVerify extends Mailable
+class recharge extends Mailable
 {
     use Queueable, SerializesModels;
     public $details;
@@ -30,6 +30,6 @@ class emailVerify extends Mailable
      */
     public function build()
     {
-        return $this->subject("Email Activation")->view('view.emailverify');
+        return $this->subject("Airtime Notification")->view('email.recharge');
     }
 }
